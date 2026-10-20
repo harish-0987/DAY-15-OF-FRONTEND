@@ -3,590 +3,647 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Day 12 Frontend: Mastering the 3 Types of CSS - Inline CSS, Internal CSS, and External CSS with live demonstrations and cascade hierarchy rules.">
-    <title>Harish | Day 12 Frontend - Types of CSS (Inline, Internal & External)</title>
+    <meta name="description" content="Day 13 Frontend: Mastering the CSS Box Model - Content, Padding, Border, Margin, Box-Sizing (content-box vs border-box), and Margin Collapsing.">
+    <meta name="author" content="Harish (harish-0987)">
+    <title>Harish | Day 13 Frontend - The CSS Box Model</title>
 
-    <!-- 1. EXTERNAL CSS: Loaded from external style.css file -->
+    <!-- Google Fonts for Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
-
-    <!-- 2. INTERNAL CSS: Defined directly within the <style> element in <head> -->
-    <style>
-        /* Internal CSS Styles for Day 12 Showcase Components */
-        .css-types-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin: 24px 0;
-        }
-
-        .type-card {
-            border-radius: 10px;
-            padding: 20px;
-            position: relative;
-        }
-
-        /* Specific internal styling for the Internal CSS demonstration card */
-        .internal-card {
-            background-color: #eff6ff;
-            border: 2px solid #93c5fd;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .internal-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
-        }
-
-        .internal-badge {
-            display: inline-block;
-            background-color: #2563eb;
-            color: #ffffff;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 3px 8px;
-            border-radius: 4px;
-            margin-bottom: 8px;
-        }
-
-        /* Specificity and Precedence Comparison Banner */
-        .precedence-wrapper {
-            background-color: #fdf2f8;
-            border: 2px dashed #f472b6;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 24px 0;
-        }
-
-        .precedence-steps {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-around;
-            gap: 10px;
-            margin-top: 14px;
-            text-align: center;
-        }
-
-        .step-pill {
-            padding: 10px 18px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.06);
-        }
-
-        .pill-inline {
-            background-color: #fef08a;
-            color: #854d0e;
-            border: 1px solid #facc15;
-        }
-
-        .pill-internal {
-            background-color: #bfdbfe;
-            color: #1e40af;
-            border: 1px solid #93c5fd;
-        }
-
-        .pill-external {
-            background-color: #bbf7d0;
-            color: #166534;
-            border: 1px solid #86efac;
-        }
-
-        .pill-browser {
-            background-color: #e2e8f0;
-            color: #475569;
-            border: 1px solid #cbd5e1;
-        }
-
-        /* Conflict test element: Internal rule targeting .cascade-demo-box */
-        /* Note: style.css defines orange background; this internal rule overrides it if placed after,
-           or inline style="background-color: ..." overrides both! */
-        .internal-override-rule {
-            background-color: #dbeafe !important;
-            color: #1e3a8a !important;
-            border: 2px solid #3b82f6 !important;
-        }
-    </style>
 </head>
 <body>
 
-    <div class="container">
-
-        <!-- Header Section -->
-        <header id="top">
-            <h1>Day 12: Types of CSS (Inline, Internal &amp; External)</h1>
-            <p>
-                <em>Welcome to Day 12 of my Frontend Challenge. Today's focus is on mastering the 
-                <strong>3 Types of CSS</strong>, how they are applied, and their cascade precedence.</em>
+    <div class="page-wrapper">
+        <!-- Header Banner -->
+        <header class="main-header">
+            <div class="badge-pill">Day 13 of 100 Days Frontend Challenge</div>
+            <h1 class="header-title">The CSS Box Model</h1>
+            <p class="header-subtitle">
+                Understanding the fundamental geometry of the web: Content, Padding, Border, Margin, and how <code>box-sizing</code> controls sizing calculations.
             </p>
-            
-            <!-- Navigation Menu -->
-            <nav>
-                <p>
-                    <strong>Navigation:</strong>
-                    <a href="#types-demo">Types of CSS Demo</a> | 
-                    <a href="#precedence">Priority &amp; Cascade</a> | 
-                    <a href="#about">About Me</a> | 
-                    <a href="#skills">Skills</a> | 
-                    <a href="#projects">Projects</a> | 
-                    <a href="#education">Education</a> | 
-                    <a href="#process">Process</a> | 
-                    <a href="#faq">FAQ</a> | 
-                    <a href="#contact">Contact</a>
-                </p>
+            <nav class="quick-nav">
+                <a href="#overview" class="nav-chip">1. Overview</a>
+                <a href="#layers" class="nav-chip">2. The 4 Layers</a>
+                <a href="#visualizer" class="nav-chip">3. Live Visualizer</a>
+                <a href="#box-sizing" class="nav-chip">4. Box-Sizing</a>
+                <a href="#shorthand" class="nav-chip">5. Shorthands</a>
+                <a href="#collapsing" class="nav-chip">6. Margin Collapsing</a>
+                <a href="#playground" class="nav-chip">7. Interactive Lab</a>
+                <a href="#profile-card" class="nav-chip">8. Practical Component</a>
             </nav>
         </header>
 
-        <!-- Main Content Area -->
-        <main>
+        <!-- Main Content Container -->
+        <main class="content-container">
 
-            <!-- ===============================================================
-                 DAY 12 SHOWCASE: 3 TYPES OF CSS DEMONSTRATION
-                 =============================================================== -->
-            <section id="types-demo">
-                <h2>🎨 Day 12 Core Focus: The 3 Types of CSS</h2>
+            <!-- Section 1: Overview -->
+            <section id="overview" class="doc-section">
+                <div class="section-badge">Section 01</div>
+                <h2 class="section-heading">What is the CSS Box Model?</h2>
                 <p>
-                    CSS can be added to HTML in three distinct ways. Each method serves specific use cases, 
-                    has unique pros and cons, and occupies a different position in the CSS cascade algorithm.
+                    In CSS, <strong>everything is a rectangular box</strong>. When the browser's rendering engine lays out a webpage, it treats every single HTML element (headings, paragraphs, buttons, divs, images) as a box consisting of four concentric rectangular zones.
                 </p>
-
-                <!-- Grid displaying all 3 Types of CSS side-by-side -->
-                <div class="css-types-container">
-
-                    <!-- TYPE 1: INLINE CSS -->
-                    <!-- Notice: All styling for this card is declared directly inside style="..." -->
-                    <div class="type-card" style="background-color: #fffbeb; border: 2px solid #fcd34d; transition: transform 0.2s ease, box-shadow 0.2s ease;">
-                        <span style="display: inline-block; background-color: #d97706; color: #ffffff; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 3px 8px; border-radius: 4px; margin-bottom: 8px;">
-                            1. Inline CSS
-                        </span>
-                        <h3 style="color: #92400e; margin-top: 4px;">Applied via <code>style=""</code></h3>
-                        <p style="color: #78350f; font-size: 0.95rem;">
-                            Inline CSS is written directly inside the opening tag of an HTML element using the <code>style</code> attribute.
-                        </p>
-                        <p style="font-size: 0.85rem; color: #b45309; font-weight: 600;">
-                            <strong>Syntax:</strong> <code>&lt;element style="property: value;"&gt;</code>
-                        </p>
-                        <ul style="padding-left: 18px; font-size: 0.9rem; color: #92400e;">
-                            <li><strong>Scope:</strong> Applies ONLY to this single element.</li>
-                            <li><strong>Precedence:</strong> Highest specificity (1,0,0,0).</li>
-                            <li><strong>Best For:</strong> Quick tests, emails, dynamic JS styles.</li>
-                            <li><strong>Drawback:</strong> Mixes content with design; unmaintainable.</li>
-                        </ul>
-                    </div>
-
-                    <!-- TYPE 2: INTERNAL CSS -->
-                    <!-- Notice: Styled by classes (.internal-card, .internal-badge) inside <style> in <head> -->
-                    <div class="type-card internal-card">
-                        <span class="internal-badge">2. Internal CSS</span>
-                        <h3 style="color: #1e40af; margin-top: 4px;">Applied via <code>&lt;style&gt;</code></h3>
-                        <p style="color: #1e3a8a; font-size: 0.95rem;">
-                            Internal (Embedded) CSS is defined within a <code>&lt;style&gt;</code> tag located inside the document's <code>&lt;head&gt;</code> section.
-                        </p>
-                        <p style="font-size: 0.85rem; color: #2563eb; font-weight: 600;">
-                            <strong>Syntax:</strong> <code>&lt;head&gt;&lt;style&gt; selector { ... } &lt;/style&gt;&lt;/head&gt;</code>
-                        </p>
-                        <ul style="padding-left: 18px; font-size: 0.9rem; color: #1e40af;">
-                            <li><strong>Scope:</strong> Applies to the entire current HTML page.</li>
-                            <li><strong>Precedence:</strong> Standard selector specificity.</li>
-                            <li><strong>Best For:</strong> Single-page sites, unique landing pages.</li>
-                            <li><strong>Drawback:</strong> Cannot be shared across multiple HTML files.</li>
-                        </ul>
-                    </div>
-
-                    <!-- TYPE 3: EXTERNAL CSS -->
-                    <!-- Notice: Styled completely by .external-card and .external-badge inside style.css -->
-                    <div class="type-card external-card">
-                        <span class="external-badge">3. External CSS</span>
-                        <h3 style="color: #166534; margin-top: 4px;">Applied via <code>&lt;link&gt;</code></h3>
-                        <p style="color: #14532d; font-size: 0.95rem;">
-                            External CSS resides in a standalone <code>.css</code> file and is linked to the HTML page using the <code>&lt;link&gt;</code> element.
-                        </p>
-                        <p style="font-size: 0.85rem; color: #16a34a; font-weight: 600;">
-                            <strong>Syntax:</strong> <code>&lt;link rel="stylesheet" href="style.css"&gt;</code>
-                        </p>
-                        <ul style="padding-left: 18px; font-size: 0.9rem; color: #166534;">
-                            <li><strong>Scope:</strong> Can style thousands of pages simultaneously.</li>
-                            <li><strong>Precedence:</strong> Depends on link position &amp; specificity.</li>
-                            <li><strong>Best For:</strong> Real-world production web development.</li>
-                            <li><strong>Benefit:</strong> Cached by browsers, clean separation of concerns.</li>
-                        </ul>
-                    </div>
-
-                </div>
-            </section>
-
-            <!-- ===============================================================
-                 PRECEDENCE & SPECIFICITY DEMONSTRATION
-                 =============================================================== -->
-            <section id="precedence">
-                <h2>🏆 CSS Priority &amp; Specificity Hierarchy</h2>
-                <p>
-                    When conflicting CSS rules target the exact same HTML element, the browser determines which 
-                    rule wins based on the **Cascade Order &amp; Specificity Hierarchy**:
-                </p>
-
-                <div class="precedence-wrapper">
-                    <h3 style="color: #9d174d; text-align: center; margin-top: 0;">Cascade Priority Order (Highest to Lowest)</h3>
-                    
-                    <div class="precedence-steps">
-                        <div class="step-pill" style="background-color: #fee2e2; color: #991b1b; border: 1px solid #f87171;">
-                            🔥 1. <code>!important</code> (Overrides everything)
-                        </div>
-                        <span style="font-size: 1.2rem; font-weight: bold; color: #be185d;">&gt;</span>
-                        <div class="step-pill pill-inline">
-                            ⚡ 2. Inline CSS (<code>style="..."</code>)
-                        </div>
-                        <span style="font-size: 1.2rem; font-weight: bold; color: #be185d;">&gt;</span>
-                        <div class="step-pill pill-internal">
-                            📑 3. Internal CSS (<code>&lt;style&gt;</code> in <code>&lt;head&gt;</code>)
-                        </div>
-                        <span style="font-size: 1.2rem; font-weight: bold; color: #be185d;">&gt;</span>
-                        <div class="step-pill pill-external">
-                            🌐 4. External CSS (<code>style.css</code>)
-                        </div>
-                        <span style="font-size: 1.2rem; font-weight: bold; color: #be185d;">&gt;</span>
-                        <div class="step-pill pill-browser">
-                            ⚙️ 5. Browser Default Styles (User Agent)
-                        </div>
-                    </div>
-
-                    <div style="margin-top: 20px; background-color: #ffffff; padding: 16px; border-radius: 8px; border: 1px solid #fbcfe8;">
-                        <h4 style="color: #9d174d; margin-bottom: 8px;">🧪 Live Precedence Test Box:</h4>
-                        <!-- This box is targeted by external CSS (.cascade-demo-box: orange),
-                             overridden by inline CSS style="background-color: #ec4899; color: white;" -->
-                        <div class="cascade-demo-box" style="background-color: #db2777; color: #ffffff; border: 2px solid #be185d;">
-                            This box is targeted by External CSS (orange), but styled in <strong>PINK</strong> via INLINE CSS!
-                            <br>
-                            <small><em>Proof: Inline CSS (Specificity 1000) overrides External CSS classes (Specificity 10).</em></small>
-                        </div>
+                <div class="callout callout-info">
+                    <div class="callout-icon">💡</div>
+                    <div class="callout-body">
+                        <strong>The Fundamental Rule:</strong> The CSS Box Model dictates how much space an element occupies on the screen, how far it stays away from adjacent elements, and how its internal contents are spaced relative to its borders.
                     </div>
                 </div>
 
-                <!-- Comparison Table -->
-                <table border="1" cellpadding="8" cellspacing="0">
-                    <caption><strong>Comprehensive Comparison: 3 Types of CSS</strong></caption>
-                    <thead>
-                        <tr>
-                            <th>Feature</th>
-                            <th>Inline CSS</th>
-                            <th>Internal CSS</th>
-                            <th>External CSS (Best Practice)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Location</strong></td>
-                            <td>Inside tag: <code>style=""</code></td>
-                            <td>Inside <code>&lt;head&gt;</code>: <code>&lt;style&gt;</code></td>
-                            <td>Separate <code>.css</code> file via <code>&lt;link&gt;</code></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Scope</strong></td>
-                            <td>Single element only</td>
-                            <td>Current HTML document only</td>
-                            <td>Entire website (all linked pages)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Specificity Weight</strong></td>
-                            <td>Highest (1,0,0,0)</td>
-                            <td>Standard (Depends on selector)</td>
-                            <td>Standard (Depends on selector)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Browser Caching</strong></td>
-                            <td>❌ No (re-downloaded with HTML)</td>
-                            <td>❌ No (re-downloaded with HTML)</td>
-                            <td>✅ Yes (cached for fast load speeds)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Maintainability</strong></td>
-                            <td>❌ Very Poor (spaghetti code)</td>
-                            <td>⚠️ Moderate (single page only)</td>
-                            <td>✅ Excellent (centralized styles)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Separation of Concerns</strong></td>
-                            <td>❌ None (HTML &amp; CSS coupled)</td>
-                            <td>⚠️ Partial (same file)</td>
-                            <td>✅ Full (Clean, dedicated stylesheet)</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-tag tag-blue">Layout Engine</div>
+                        <h3>Every Element is a Box</h3>
+                        <p>Even circular images or round buttons are internally rectangular boxes rendered with circular border-radius clipping.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-tag tag-purple">Spatial Geometry</div>
+                        <h3>Four Interlocking Layers</h3>
+                        <p>From inside to outside: <strong>Content</strong> &rarr; <strong>Padding</strong> &rarr; <strong>Border</strong> &rarr; <strong>Margin</strong>.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-tag tag-amber">Calculation Mode</div>
+                        <h3>Controlled by Box-Sizing</h3>
+                        <p>The <code>box-sizing</code> property dictates whether padding and borders add to width or stay contained inside it.</p>
+                    </div>
+                </div>
             </section>
 
-            <hr style="margin: 32px 0; border: none; border-top: 1px solid #e2e8f0;">
-
-            <!-- ===============================================================
-                 PORTFOLIO CONTENT: ABOUT ME
-                 =============================================================== -->
-            <section id="about">
-                <h2>1. About Me</h2>
-                <figure style="text-align: center; margin: 16px 0;">
-                    <img src="avatar.jpg" alt="Profile Picture of Harish" width="150" height="150" class="avatar-img">
-                    <figcaption><small><em>Figure 1: Harish - Aspiring Frontend Developer</em></small></figcaption>
-                </figure>
-
+            <!-- Section 2: The 4 Layers -->
+            <section id="layers" class="doc-section">
+                <div class="section-badge">Section 02</div>
+                <h2 class="section-heading">The Four Core Layers of the Box Model</h2>
                 <p>
-                    Hello! My name is <strong>Harish</strong>. I am a tech enthusiast pursuing a journey to master 
-                    modern frontend development. This website represents <mark>Day 12 of my Frontend Challenge</mark>, 
-                    focusing on the **3 Types of CSS** (Inline, Internal, and External) and their interaction rules.
+                    Each layer serves a distinct architectural purpose in user interface design. Let us dissect each layer from the inside out:
                 </p>
 
+                <div class="layers-grid">
+                    <!-- Layer 1: Content -->
+                    <div class="layer-card layer-content-card">
+                        <div class="layer-header">
+                            <span class="layer-badge badge-content">Core 1</span>
+                            <h3>1. Content Area</h3>
+                        </div>
+                        <p class="layer-desc">The innermost zone where actual text, images, or child elements reside.</p>
+                        <ul class="layer-specs">
+                            <li><strong>Controlled By:</strong> <code>width</code>, <code>height</code>, <code>min-width</code>, <code>max-width</code></li>
+                            <li><strong>Background:</strong> Inherits the element's background color or image.</li>
+                            <li><strong>Default Inline behavior:</strong> Shrinks to fit text/children.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Layer 2: Padding -->
+                    <div class="layer-card layer-padding-card">
+                        <div class="layer-header">
+                            <span class="layer-badge badge-padding">Layer 2</span>
+                            <h3>2. Padding Area</h3>
+                        </div>
+                        <p class="layer-desc">The internal breathing room between the content and the element's border.</p>
+                        <ul class="layer-specs">
+                            <li><strong>Controlled By:</strong> <code>padding</code> (top, right, bottom, left)</li>
+                            <li><strong>Background:</strong> Shows the element's background color and pattern.</li>
+                            <li><strong>Clickable:</strong> Yes! Part of the element's hit area.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Layer 3: Border -->
+                    <div class="layer-card layer-border-card">
+                        <div class="layer-header">
+                            <span class="layer-badge badge-border">Layer 3</span>
+                            <h3>3. Border Area</h3>
+                        </div>
+                        <p class="layer-desc">The perimeter line wrapping the padding and content.</p>
+                        <ul class="layer-specs">
+                            <li><strong>Controlled By:</strong> <code>border-width</code>, <code>border-style</code>, <code>border-color</code></li>
+                            <li><strong>Styles:</strong> <code>solid</code>, <code>dashed</code>, <code>dotted</code>, <code>double</code>, <code>groove</code></li>
+                            <li><strong>Border Radius:</strong> Curves the corners of this perimeter.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Layer 4: Margin -->
+                    <div class="layer-card layer-margin-card">
+                        <div class="layer-header">
+                            <span class="layer-badge badge-margin">Layer 4</span>
+                            <h3>4. Margin Area</h3>
+                        </div>
+                        <p class="layer-desc">The external clearance zone pushing adjacent elements away.</p>
+                        <ul class="layer-specs">
+                            <li><strong>Controlled By:</strong> <code>margin</code> (top, right, bottom, left)</li>
+                            <li><strong>Background:</strong> Always transparent (reveals the parent's background).</li>
+                            <li><strong>Special Features:</strong> Accepts negative values, can collapse vertically.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Visualizer Diagram -->
+            <section id="visualizer" class="doc-section">
+                <div class="section-badge">Section 03</div>
+                <h2 class="section-heading">Concentric Box Model Diagram</h2>
                 <p>
-                    My goal is to develop clean, accessible, semantic, and visually engaging web applications, 
-                    starting with foundational HTML5 and CSS3 architecture.
+                    Below is an accurate, color-coded visual representation of how the browser inspector models every element:
                 </p>
 
-                <h3>Personal Quick Facts</h3>
-                <dl>
-                    <dt><strong>Location:</strong></dt>
-                    <dd>Telangana, India</dd>
+                <!-- Box Model Nested Visualizer -->
+                <div class="diagram-wrapper">
+                    <!-- MARGIN LAYER -->
+                    <div class="box-model-layer bm-margin">
+                        <div class="bm-label bm-label-margin">
+                            <span>MARGIN (Outer Space &bull; #fde68a / Amber)</span>
+                            <span class="bm-coord">margin: 30px</span>
+                        </div>
 
-                    <dt><strong>Current Milestone:</strong></dt>
-                    <dd>Day 12: Types of CSS (Inline, Internal, External) &amp; Cascade Hierarchy</dd>
+                        <!-- BORDER LAYER -->
+                        <div class="box-model-layer bm-border">
+                            <div class="bm-label bm-label-border">
+                                <span>BORDER (Perimeter Frame &bull; #fed7aa / Orange)</span>
+                                <span class="bm-coord">border: 8px solid</span>
+                            </div>
 
-                    <dt><strong>GitHub Profile:</strong></dt>
-                    <dd><a href="https://github.com/harish-0987" target="_blank">github.com/harish-0987</a></dd>
-                </dl>
+                            <!-- PADDING LAYER -->
+                            <div class="box-model-layer bm-padding">
+                                <div class="bm-label bm-label-padding">
+                                    <span>PADDING (Inner Breath &bull; #bbf7d0 / Green)</span>
+                                    <span class="bm-coord">padding: 24px</span>
+                                </div>
+
+                                <!-- CONTENT LAYER -->
+                                <div class="box-model-layer bm-content">
+                                    <div class="bm-label bm-label-content">
+                                        <span>CONTENT AREA (Text, Images &bull; #bfdbfe / Blue)</span>
+                                    </div>
+                                    <div class="content-dimension-box">
+                                        <span class="dim-text">320 &times; 100 px</span>
+                                        <p class="dim-sub">Target Payload Zone</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="color-key-legend">
+                    <span class="legend-item"><span class="swatch swatch-margin"></span> Margin (Clears surrounding space)</span>
+                    <span class="legend-item"><span class="swatch swatch-border"></span> Border (Visual boundary frame)</span>
+                    <span class="legend-item"><span class="swatch swatch-padding"></span> Padding (Internal breathing room)</span>
+                    <span class="legend-item"><span class="swatch swatch-content"></span> Content (Actual elements & text)</span>
+                </div>
             </section>
 
-            <hr style="margin: 32px 0; border: none; border-top: 1px solid #e2e8f0;">
+            <!-- Section 4: box-sizing Deep Dive -->
+            <section id="box-sizing" class="doc-section">
+                <div class="section-badge">Section 04</div>
+                <h2 class="section-heading">The Great Sizing Duel: content-box vs border-box</h2>
+                <p>
+                    By default, CSS behaves in a way that catches almost every beginner off guard. The <code>box-sizing</code> property determines how the browser calculates the total rendered width and height of an element.
+                </p>
 
-            <!-- ===============================================================
-                 SKILLS & COMPETENCIES
-                 =============================================================== -->
-            <section id="skills">
-                <h2>2. Technical Skills &amp; Competencies</h2>
+                <!-- Comparison Showcase -->
+                <div class="sizing-comparison-grid">
+                    <!-- Content Box -->
+                    <div class="sizing-card content-box-card">
+                        <div class="sizing-card-header">
+                            <span class="badge-status badge-legacy">W3C Default</span>
+                            <h3>box-sizing: content-box</h3>
+                        </div>
+                        <p class="sizing-sub">The width and height properties only apply to the <strong>content area</strong>.</p>
+                        
+                        <div class="code-snippet">
+                            <code>
+<span class="c-prop">box-sizing</span>: <span class="c-val">content-box</span>;<br>
+<span class="c-prop">width</span>: <span class="c-val">280px</span>;<br>
+<span class="c-prop">padding</span>: <span class="c-val">20px</span>;<br>
+<span class="c-prop">border</span>: <span class="c-val">6px solid #ef4444</span>;
+                            </code>
+                        </div>
 
-                <h3>Core Technologies Covered (Day 1 - Day 12)</h3>
-                <ul>
-                    <li>
-                        <strong>HTML5 Structure &amp; Semantics:</strong>
-                        <ul>
-                            <li>Semantic Tags (<code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;footer&gt;</code>)</li>
-                            <li>Lists, Tables (with row &amp; column spans), Forms, Media elements</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <strong>CSS3 Styling (Day 11 - Day 12):</strong>
-                        <ul>
-                            <li>Foundational CSS Theory, Selectors, and Box Model (Day 11)</li>
-                            <li><strong>3 Types of CSS</strong>: Inline, Internal, and External CSS (Day 12)</li>
-                            <li>CSS Specificity, Priority Hierarchy, and Cascade Algorithms</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <strong>Tools &amp; Workflow:</strong>
-                        <ul>
-                            <li>Git, GitHub, VS Code, Browser Developer Tools (CSS Inspector)</li>
-                        </ul>
-                    </li>
-                </ul>
-            </section>
+                        <div class="math-box">
+                            <div class="math-title">📐 Rendered Total Width Calculation:</div>
+                            <div class="math-equation">
+                                280px (Width) + 40px (Padding L+R) + 12px (Border L+R) = <strong class="text-danger">332px</strong>
+                            </div>
+                            <p class="math-note">⚠️ Element expands beyond declared 280px! Easily breaks grid layouts.</p>
+                        </div>
 
-            <hr style="margin: 32px 0; border: none; border-top: 1px solid #e2e8f0;">
+                        <!-- Live Visual Box -->
+                        <div class="demo-box-container">
+                            <div class="live-demo-box demo-content-box">
+                                <span class="demo-tag">Actual Rendered: 332px</span>
+                                <p>Grows larger as padding or border increases!</p>
+                            </div>
+                        </div>
+                    </div>
 
-            <!-- ===============================================================
-                 FEATURED PROJECTS
-                 =============================================================== -->
-            <section id="projects">
-                <h2>3. Featured Frontend Milestones</h2>
+                    <!-- Border Box -->
+                    <div class="sizing-card border-box-card">
+                        <div class="sizing-card-header">
+                            <span class="badge-status badge-modern">Modern Standard (Recommended)</span>
+                            <h3>box-sizing: border-box</h3>
+                        </div>
+                        <p class="sizing-sub">The declared width and height include <strong>content + padding + border</strong>.</p>
+                        
+                        <div class="code-snippet">
+                            <code>
+<span class="c-prop">box-sizing</span>: <span class="c-val">border-box</span>;<br>
+<span class="c-prop">width</span>: <span class="c-val">280px</span>;<br>
+<span class="c-prop">padding</span>: <span class="c-val">20px</span>;<br>
+<span class="c-prop">border</span>: <span class="c-val">6px solid #10b981</span>;
+                            </code>
+                        </div>
 
-                <!-- Milestone 1 -->
-                <article>
-                    <h3>Project 1: CSS Types &amp; Precedence Interactive Guide (Day 12 - Current)</h3>
-                    <img src="project-preview.jpg" alt="Preview of Day 12 Project" width="300">
-                    <p>
-                        A hands-on showcase illustrating the practical application and differences between Inline, 
-                        Internal, and External CSS, along with a live specificity precedence test.
+                        <div class="math-box">
+                            <div class="math-title">📐 Rendered Total Width Calculation:</div>
+                            <div class="math-equation">
+                                Total Width = <strong class="text-success">280px Exact</strong><br>
+                                (Content auto-shrinks to: 280 - 40 - 12 = 228px)
+                            </div>
+                            <p class="math-note">✅ Element stays exactly 280px! Predictable, robust responsive layout.</p>
+                        </div>
+
+                        <!-- Live Visual Box -->
+                        <div class="demo-box-container">
+                            <div class="live-demo-box demo-border-box">
+                                <span class="demo-tag">Actual Rendered: 280px</span>
+                                <p>Stays exactly the width you assigned!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Best Practice Universal Box-Sizing Reset -->
+                <div class="reset-box">
+                    <h3>🏆 The Universal CSS Box-Sizing Best Practice</h3>
+                    <p>Modern frontend web development always starts with this universal reset snippet:</p>
+                    <div class="code-block-large">
+<pre><code><span class="c-comment">/* Universal Box-Sizing Inheritance Reset */</span>
+<span class="c-sel">*, *::before, *::after</span> {
+    <span class="c-prop">box-sizing</span>: <span class="c-val">border-box</span>;
+    <span class="c-prop">margin</span>: <span class="c-val">0</span>;
+    <span class="c-prop">padding</span>: <span class="c-val">0</span>;
+}</code></pre>
+                    </div>
+                    <p class="reset-expl">
+                        This guarantees every element on your page respects the exact dimensions you specify without unexpected overflow or horizontal scrollbars.
                     </p>
-                    <ul>
-                        <li><strong>Topics:</strong> Inline styles, <code>&lt;style&gt;</code> tags, External stylesheets, Cascade rules</li>
-                        <li><strong>Status:</strong> Active (Day 12)</li>
-                        <li><strong>Repository:</strong> <a href="https://github.com/harish-0987/DAY-12-OF-FRONTEND" target="_blank">DAY-12-OF-FRONTEND on GitHub</a></li>
+                </div>
+            </section>
+
+            <!-- Section 5: Shorthand Properties & Clockwise Rule -->
+            <section id="shorthand" class="doc-section">
+                <div class="section-badge">Section 05</div>
+                <h2 class="section-heading">Directional Shorthand: The Clockwise TRBL Rule</h2>
+                <p>
+                    Padding and Margin accept 1, 2, 3, or 4 values. Remember the mnemonic acronym <strong>TRBL ("Trouble")</strong>: <strong>Top &rarr; Right &rarr; Bottom &rarr; Left</strong> (Clockwise starting from 12 o'clock).
+                </p>
+
+                <div class="shorthand-table-wrapper">
+                    <table class="shorthand-table">
+                        <thead>
+                            <tr>
+                                <th>Syntax Pattern</th>
+                                <th>Code Example</th>
+                                <th>Mapping Interpretation</th>
+                                <th>Equivalent Longhand</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="pill-syntax">1 Value</span></td>
+                                <td><code>padding: 20px;</code></td>
+                                <td>Applies equally to <strong>All 4 sides</strong></td>
+                                <td><code>top: 20px; right: 20px; bottom: 20px; left: 20px;</code></td>
+                            </tr>
+                            <tr>
+                                <td><span class="pill-syntax">2 Values</span></td>
+                                <td><code>margin: 15px 30px;</code></td>
+                                <td><strong>Vertical</strong> (Top/Bottom) | <strong>Horizontal</strong> (Right/Left)</td>
+                                <td><code>top: 15px; bottom: 15px; right: 30px; left: 30px;</code></td>
+                            </tr>
+                            <tr>
+                                <td><span class="pill-syntax">3 Values</span></td>
+                                <td><code>padding: 10px 25px 40px;</code></td>
+                                <td><strong>Top</strong> | <strong>Horizontal</strong> (Right/Left) | <strong>Bottom</strong></td>
+                                <td><code>top: 10px; right: 25px; bottom: 40px; left: 25px;</code></td>
+                            </tr>
+                            <tr>
+                                <td><span class="pill-syntax">4 Values</span></td>
+                                <td><code>margin: 10px 20px 30px 40px;</code></td>
+                                <td><strong>Top</strong> | <strong>Right</strong> | <strong>Bottom</strong> | <strong>Left</strong> (TRBL)</td>
+                                <td><code>top: 10px; right: 20px; bottom: 30px; left: 40px;</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Centering Trick with margin: auto -->
+                <div class="callout callout-tip">
+                    <div class="callout-icon">🎯</div>
+                    <div class="callout-body">
+                        <strong>Centering Block Elements with Margin:</strong>
+                        Using <code>margin: 0 auto;</code> on a block element with a defined width (e.g., <code>max-width: 800px;</code>) will evenly divide the available horizontal space between the left and right margins, perfectly centering the container on the page!
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 6: Margin Collapsing Phenomenon -->
+            <section id="collapsing" class="doc-section">
+                <div class="section-badge">Section 06</div>
+                <h2 class="section-heading">Margin Collapsing Phenomenon</h2>
+                <p>
+                    One of the most unique behaviors in CSS is <strong>vertical margin collapsing</strong>. When two vertical margins meet, they do <em>not</em> add together. Instead, they collapse into a single margin equal to the <strong>larger of the two</strong>!
+                </p>
+
+                <div class="collapsing-demo-container">
+                    <div class="collapse-box box-a">
+                        <strong>Element A</strong>
+                        <code>margin-bottom: 40px;</code>
+                    </div>
+
+                    <div class="collapse-gap-indicator">
+                        <span class="gap-ruler"></span>
+                        <div class="gap-text">
+                            <strong>Collapsed Distance = 40px</strong> (NOT 40px + 30px = 70px)
+                        </div>
+                    </div>
+
+                    <div class="collapse-box box-b">
+                        <strong>Element B</strong>
+                        <code>margin-top: 30px;</code>
+                    </div>
+                </div>
+
+                <div class="rules-list-card">
+                    <h3>Key Rules of Margin Collapsing:</h3>
+                    <ul class="rules-list">
+                        <li><strong>Vertical Only:</strong> Horizontal margins (left and right) <em>never</em> collapse; they always sum together.</li>
+                        <li><strong>Adjacent Siblings:</strong> When two sibling block elements stack vertically, bottom margin of the upper element meets top margin of the lower element.</li>
+                        <li><strong>Parent & Child:</strong> If a parent has no border or padding separating it from its first/last child, their vertical margins collapse together.</li>
+                        <li><strong>Prevention Methods:</strong> Adding <code>padding: 1px 0;</code>, <code>border: 1px solid transparent;</code>, or using <code>display: flex</code> / <code>display: grid</code> stops margin collapsing entirely.</li>
                     </ul>
-                </article>
-
-                <br>
-
-                <!-- Milestone 2 -->
-                <article>
-                    <h3>Project 2: CSS Foundational Theory &amp; Basic Stylesheet (Day 11)</h3>
-                    <p>Introduction to the CSS syntax, selectors, rendering engine pipeline, and the CSS Box Model.</p>
-                    <ul>
-                        <li><strong>Topics:</strong> CSS Box Model, Specificity, Basic Selectors</li>
-                        <li><strong>Repository:</strong> <a href="https://github.com/harish-0987/DAY-11-OF-FRONTEND" target="_blank">DAY-11-OF-FRONTEND on GitHub</a></li>
-                    </ul>
-                </article>
-
-                <br>
-
-                <!-- Milestone 3 -->
-                <article>
-                    <h3>Project 3: Pure HTML Developer Portfolio (Day 10)</h3>
-                    <p>A comprehensive multi-section personal resume and showcase built strictly with vanilla semantic HTML5.</p>
-                    <ul>
-                        <li><strong>Topics:</strong> Pure HTML5, Semantic Wireframing, Tables, Forms</li>
-                        <li><strong>Repository:</strong> <a href="https://github.com/harish-0987/DAY-10-OF-FRONTEND" target="_blank">DAY-10-OF-FRONTEND on GitHub</a></li>
-                    </ul>
-                </article>
+                </div>
             </section>
 
-            <hr style="margin: 32px 0; border: none; border-top: 1px solid #e2e8f0;">
+            <!-- Section 7: Interactive Lab Playground -->
+            <section id="playground" class="doc-section">
+                <div class="section-badge">Section 07</div>
+                <h2 class="section-heading">Interactive Box Model Playground</h2>
+                <p>
+                    Test the CSS Box Model dynamically! Adjust the sliders and toggle <code>box-sizing</code> below to see real-time updates of dimensions and geometry:
+                </p>
 
-            <!-- ===============================================================
-                 EDUCATION SECTION
-                 =============================================================== -->
-            <section id="education">
-                <h2>4. Education &amp; Academic Qualifications</h2>
-                <table border="1" cellpadding="8" cellspacing="0">
-                    <caption><strong>Academic History</strong></caption>
-                    <thead>
-                        <tr>
-                            <th>Degree / Qualification</th>
-                            <th>Institution</th>
-                            <th>Board / University</th>
-                            <th>Year</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Bachelor of Technology (B.Tech)</td>
-                            <td>Engineering College</td>
-                            <td>State Technological University</td>
-                            <td>2022 - 2026</td>
-                            <td>Pursuing</td>
-                        </tr>
-                        <tr>
-                            <td>Intermediate (10+2)</td>
-                            <td>Junior College</td>
-                            <td>Board of Intermediate Education</td>
-                            <td>2020 - 2022</td>
-                            <td>Completed</td>
-                        </tr>
-                        <tr>
-                            <td>Secondary School (SSC - 10th)</td>
-                            <td>High School</td>
-                            <td>State Board of Secondary Education</td>
-                            <td>2019 - 2020</td>
-                            <td>Completed</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <hr style="margin: 32px 0; border: none; border-top: 1px solid #e2e8f0;">
-
-            <!-- ===============================================================
-                 DEVELOPMENT PROCESS
-                 =============================================================== -->
-            <section id="process">
-                <h2>5. Frontend Development Workflow</h2>
-                <ol type="1">
-                    <li><strong>Content Architecture:</strong> Lay down clean, semantic HTML5 structure.</li>
-                    <li><strong>External Styling:</strong> Create a dedicated <code>style.css</code> file for modular, reusable presentation.</li>
-                    <li><strong>Component Refinement:</strong> Apply targeted classes and responsive layout rules.</li>
-                    <li><strong>Cross-Browser Testing:</strong> Inspect rendering across Chrome, Firefox, Edge, and mobile viewports.</li>
-                    <li><strong>Version Control:</strong> Commit each milestone and push to GitHub.</li>
-                </ol>
-            </section>
-
-            <hr style="margin: 32px 0; border: none; border-top: 1px solid #e2e8f0;">
-
-            <!-- ===============================================================
-                 FAQ SECTION
-                 =============================================================== -->
-            <section id="faq">
-                <h2>6. Frequently Asked Questions (FAQ)</h2>
-
-                <details>
-                    <summary><strong>Why is External CSS preferred over Inline and Internal CSS?</strong></summary>
-                    <p>
-                        External CSS keeps presentation completely decoupled from HTML structure. It allows 
-                        one stylesheet to manage the look and feel of thousands of pages, improves loading times 
-                        through browser caching, and keeps code clean and maintainable.
-                    </p>
-                </details>
-
-                <details>
-                    <summary><strong>When is Inline CSS ever acceptable?</strong></summary>
-                    <p>
-                        Inline CSS is typically used for quick debugging, testing dynamic styles applied via JavaScript, 
-                        or formatting HTML email templates where external stylesheets are frequently blocked by email clients.
-                    </p>
-                </details>
-
-                <details>
-                    <summary><strong>What happens when Inline CSS conflicts with External CSS?</strong></summary>
-                    <p>
-                        By default, Inline CSS wins because it has a specificity score of <code>1,0,0,0</code>, which is 
-                        higher than external element or class selectors. The only way external CSS can override inline 
-                        styles is by utilizing the <code>!important</code> flag.
-                    </p>
-                </details>
-            </section>
-
-            <hr style="margin: 32px 0; border: none; border-top: 1px solid #e2e8f0;">
-
-            <!-- ===============================================================
-                 CONTACT FORM
-                 =============================================================== -->
-            <section id="contact">
-                <h2>7. Contact Me</h2>
-                <p>Have an inquiry or feedback regarding this Day 12 CSS challenge? Send a message below:</p>
-
-                <form action="#" method="post">
-                    <fieldset>
-                        <legend><strong>Contact Details</strong></legend>
-                        <p>
-                            <label for="fullname">Full Name:</label><br>
-                            <input type="text" id="fullname" name="fullname" placeholder="Harish..." required>
-                        </p>
-                        <p>
-                            <label for="email">Email Address:</label><br>
-                            <input type="email" id="email" name="email" placeholder="harish@example.com" required>
-                        </p>
-                        <p>
-                            <label for="topic">Inquiry Type:</label><br>
-                            <select id="topic" name="topic" required>
-                                <option value="">-- Choose an option --</option>
-                                <option value="css-questions">CSS Types &amp; Precedence Inquiry</option>
-                                <option value="collaboration">Project Collaboration</option>
-                                <option value="general">General Feedback</option>
+                <div class="lab-card">
+                    <div class="lab-controls">
+                        <!-- Box-Sizing Selector -->
+                        <div class="control-group">
+                            <label for="select-box-sizing"><strong>box-sizing:</strong></label>
+                            <select id="select-box-sizing" class="form-select">
+                                <option value="border-box" selected>border-box (Modern Standard)</option>
+                                <option value="content-box">content-box (W3C Default)</option>
                             </select>
-                        </p>
-                        <p>
-                            <label for="message">Message:</label><br>
-                            <textarea id="message" name="message" rows="4" placeholder="Your comments or questions..." required></textarea>
-                        </p>
-                        <p>
-                            <input type="submit" value="Send Message">
-                            <input type="reset" value="Reset Fields">
-                        </p>
-                    </fieldset>
-                </form>
+                        </div>
+
+                        <!-- Width Range -->
+                        <div class="control-group">
+                            <div class="slider-header">
+                                <label for="slider-width">Declared Width:</label>
+                                <span id="val-width" class="slider-val">260px</span>
+                            </div>
+                            <input type="range" id="slider-width" min="180" max="360" value="260" step="10">
+                        </div>
+
+                        <!-- Padding Range -->
+                        <div class="control-group">
+                            <div class="slider-header">
+                                <label for="slider-padding">Padding:</label>
+                                <span id="val-padding" class="slider-val">20px</span>
+                            </div>
+                            <input type="range" id="slider-padding" min="0" max="40" value="20" step="5">
+                        </div>
+
+                        <!-- Border Range -->
+                        <div class="control-group">
+                            <div class="slider-header">
+                                <label for="slider-border">Border Width:</label>
+                                <span id="val-border" class="slider-val">4px</span>
+                            </div>
+                            <input type="range" id="slider-border" min="0" max="16" value="4" step="2">
+                        </div>
+
+                        <!-- Margin Range -->
+                        <div class="control-group">
+                            <div class="slider-header">
+                                <label for="slider-margin">Margin:</label>
+                                <span id="val-margin" class="slider-val">15px</span>
+                            </div>
+                            <input type="range" id="slider-margin" min="0" max="30" value="15" step="5">
+                        </div>
+                    </div>
+
+                    <!-- Live Target Preview Area -->
+                    <div class="lab-stage">
+                        <div class="stage-wrapper" id="stage-wrapper">
+                            <div id="interactive-element" class="interactive-box">
+                                <div class="inner-content-indicator">
+                                    <span class="content-tag">Content Payload</span>
+                                    <div id="metric-content" class="metric-line">Content Width: 212px</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Computed Real-time Specs Card -->
+                        <div class="metrics-display-card">
+                            <div class="metric-row">
+                                <span>Declared Width:</span>
+                                <strong id="out-declared">260px</strong>
+                            </div>
+                            <div class="metric-row">
+                                <span>Horizontal Padding (L+R):</span>
+                                <strong id="out-padding">40px</strong>
+                            </div>
+                            <div class="metric-row">
+                                <span>Horizontal Border (L+R):</span>
+                                <strong id="out-border">8px</strong>
+                            </div>
+                            <div class="metric-row highlight-row">
+                                <span>Actual Rendered On-Screen Width:</span>
+                                <strong id="out-rendered" class="text-accent">260px</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
 
+            <!-- Section 8: Practical Component Showcase -->
+            <section id="profile-card" class="doc-section">
+                <div class="section-badge">Section 08</div>
+                <h2 class="section-heading">Practical Component: Box Model in UI Design</h2>
+                <p>
+                    Every polished user interface component depends on deliberate box model choices. Here is a real-world Author Card with annotated box model zones:
+                </p>
+
+                <div class="practical-showcase">
+                    <article class="author-ui-card">
+                        <div class="author-avatar-wrapper">
+                            <img src="avatar.jpg" alt="Harish - Frontend Developer Profile" class="author-avatar" width="96" height="96">
+                        </div>
+                        <div class="author-info">
+                            <div class="author-tag">Frontend Developer</div>
+                            <h3 class="author-name">Harish</h3>
+                            <p class="author-bio">
+                                Building 100 Days of Frontend Excellence. Today exploring CSS Box Model, layout geometry, spacing systems, and responsive design fundamentals.
+                            </p>
+                            <div class="author-skills">
+                                <span class="skill-pill">HTML5</span>
+                                <span class="skill-pill">CSS3 Box Model</span>
+                                <span class="skill-pill">Flexbox</span>
+                                <span class="skill-pill">UI Design</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <div class="annotation-card">
+                        <h3>Box Model Anatomy of the Card:</h3>
+                        <ol class="anatomy-list">
+                            <li>
+                                <strong>Card Margin:</strong> <code>margin: 0 auto;</code> centers the card horizontally inside its section.
+                            </li>
+                            <li>
+                                <strong>Card Border:</strong> <code>border: 1px solid #e2e8f0;</code> provides a subtle structural outline.
+                            </li>
+                            <li>
+                                <strong>Card Padding:</strong> <code>padding: 24px;</code> keeps all avatar and text content comfortably spaced from the card borders.
+                            </li>
+                            <li>
+                                <strong>Avatar Spacing:</strong> <code>border: 3px solid #3b82f6;</code> frame with <code>margin-bottom: 16px;</code> creates proportional clearance.
+                            </li>
+                            <li>
+                                <strong>Skill Badges:</strong> <code>padding: 4px 12px;</code> and <code>border-radius: 999px;</code> yields modern pill styling.
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Summary & Best Practices -->
+            <section class="doc-section summary-section">
+                <div class="section-badge">Section 09</div>
+                <h2 class="section-heading">Key Takeaways & Best Practices</h2>
+                
+                <div class="summary-cards-grid">
+                    <div class="summary-box">
+                        <div class="s-icon">1</div>
+                        <h4>Always Reset to border-box</h4>
+                        <p>Set <code>box-sizing: border-box</code> globally. It prevents padding from expanding your element widths and breaking layouts.</p>
+                    </div>
+                    <div class="summary-box">
+                        <div class="s-icon">2</div>
+                        <h4>Padding vs Margin Purpose</h4>
+                        <p>Use <strong>Padding</strong> for internal breathing space (inside the background/border). Use <strong>Margin</strong> to separate different elements.</p>
+                    </div>
+                    <div class="summary-box">
+                        <div class="s-icon">3</div>
+                        <h4>Remember TRBL Order</h4>
+                        <p>Shorthand always proceeds clockwise: <strong>Top &rarr; Right &rarr; Bottom &rarr; Left</strong>.</p>
+                    </div>
+                    <div class="summary-box">
+                        <div class="s-icon">4</div>
+                        <h4>Beware Margin Collapse</h4>
+                        <p>Adjacent vertical margins collapse into the largest value. Use Flexbox or Grid gaps (<code>gap: 16px</code>) for cleaner, non-collapsing spacing.</p>
+                    </div>
+                </div>
+            </section>
         </main>
 
-        <!-- Footer Section -->
-        <footer>
-            <p>
-                <strong>&copy; 2026 Harish.</strong> All rights reserved. &bull; 
-                <em>Day 12 Frontend Development - Types of CSS (Inline, Internal &amp; External)</em>
-            </p>
-            <p>
-                <a href="#top">⬆ Return to Top</a> | 
-                <a href="mailto:peddapellyharish@gmail.com">peddapellyharish@gmail.com</a> | 
-                <a href="https://github.com/harish-0987/DAY-12-OF-FRONTEND" target="_blank">GitHub Repository</a>
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="footer-links">
+                <a href="https://github.com/harish-0987/DAY-12-OF-FRONTEND" class="f-link">&larr; Day 12: Types of CSS</a>
+                <span class="f-divider">&bull;</span>
+                <a href="https://github.com/harish-0987/DAY-13-OF-FRONTEND" class="f-link f-current">Day 13: CSS Box Model (Current)</a>
+                <span class="f-divider">&bull;</span>
+                <a href="https://github.com/harish-0987" class="f-link">GitHub Profile</a>
+            </div>
+            <p class="copyright">
+                &copy; 2026 Harish (harish-0987) &bull; 100 Days of Frontend Challenge &bull; Built with HTML5 &amp; Modern Vanilla CSS
             </p>
         </footer>
-
     </div>
 
+    <!-- Interactive Script for Live Box Model Lab -->
+    <script>
+        const selectBoxSizing = document.getElementById('select-box-sizing');
+        const sliderWidth = document.getElementById('slider-width');
+        const sliderPadding = document.getElementById('slider-padding');
+        const sliderBorder = document.getElementById('slider-border');
+        const sliderMargin = document.getElementById('slider-margin');
+
+        const valWidth = document.getElementById('val-width');
+        const valPadding = document.getElementById('val-padding');
+        const valBorder = document.getElementById('val-border');
+        const valMargin = document.getElementById('val-margin');
+
+        const outDeclared = document.getElementById('out-declared');
+        const outPadding = document.getElementById('out-padding');
+        const outBorder = document.getElementById('out-border');
+        const outRendered = document.getElementById('out-rendered');
+        const metricContent = document.getElementById('metric-content');
+
+        const box = document.getElementById('interactive-element');
+
+        function updateBoxModel() {
+            const sizing = selectBoxSizing.value;
+            const w = parseInt(sliderWidth.value, 10);
+            const p = parseInt(sliderPadding.value, 10);
+            const b = parseInt(sliderBorder.value, 10);
+            const m = parseInt(sliderMargin.value, 10);
+
+            // Update label indicators
+            valWidth.textContent = w + 'px';
+            valPadding.textContent = p + 'px';
+            valBorder.textContent = b + 'px';
+            valMargin.textContent = m + 'px';
+
+            // Apply styles to interactive element
+            box.style.boxSizing = sizing;
+            box.style.width = w + 'px';
+            box.style.padding = p + 'px';
+            box.style.borderWidth = b + 'px';
+            box.style.margin = m + 'px auto';
+
+            // Calculations
+            const horizontalPadding = p * 2;
+            const horizontalBorder = b * 2;
+
+            let renderedWidth = 0;
+            let contentWidth = 0;
+
+            if (sizing === 'content-box') {
+                renderedWidth = w + horizontalPadding + horizontalBorder;
+                contentWidth = w;
+            } else {
+                renderedWidth = w;
+                contentWidth = Math.max(0, w - horizontalPadding - horizontalBorder);
+            }
+
+            outDeclared.textContent = w + 'px';
+            outPadding.textContent = horizontalPadding + 'px (' + p + 'px L + ' + p + 'px R)';
+            outBorder.textContent = horizontalBorder + 'px (' + b + 'px L + ' + b + 'px R)';
+            outRendered.textContent = renderedWidth + 'px';
+            metricContent.textContent = 'Content Width: ' + contentWidth + 'px';
+        }
+
+        selectBoxSizing.addEventListener('change', updateBoxModel);
+        sliderWidth.addEventListener('input', updateBoxModel);
+        sliderPadding.addEventListener('input', updateBoxModel);
+        sliderBorder.addEventListener('input', updateBoxModel);
+        sliderMargin.addEventListener('input', updateBoxModel);
+
+        // Initial setup
+        updateBoxModel();
+    </script>
 </body>
 </html>
