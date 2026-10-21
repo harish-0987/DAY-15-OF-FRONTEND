@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Day 13 Frontend: Mastering the CSS Box Model - Content, Padding, Border, Margin, Box-Sizing (content-box vs border-box), and Margin Collapsing.">
+    <meta name="description" content="Day 14 Frontend: Mastering Important CSS Selectors - Universal, Type, Class, ID, Combinators, Attributes, Pseudo-Classes, Pseudo-Elements, and Specificity.">
     <meta name="author" content="Harish (harish-0987)">
-    <title>Harish | Day 13 Frontend - The CSS Box Model</title>
+    <title>Harish | Day 14 Frontend - Important CSS Selectors</title>
 
     <!-- Google Fonts for Modern Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,539 +20,761 @@
     <div class="page-wrapper">
         <!-- Header Banner -->
         <header class="main-header">
-            <div class="badge-pill">Day 13 of 100 Days Frontend Challenge</div>
-            <h1 class="header-title">The CSS Box Model</h1>
+            <div class="badge-pill">Day 14 of 100 Days Frontend Challenge</div>
+            <h1 class="header-title">Important CSS Selectors</h1>
             <p class="header-subtitle">
-                Understanding the fundamental geometry of the web: Content, Padding, Border, Margin, and how <code>box-sizing</code> controls sizing calculations.
+                The precision targeting system of CSS: Learn how to select, filter, and style elements with accuracy using Universal, Element, Class, ID, Combinator, Attribute, Pseudo-Class, and Pseudo-Element selectors.
             </p>
-            <nav class="quick-nav">
-                <a href="#overview" class="nav-chip">1. Overview</a>
-                <a href="#layers" class="nav-chip">2. The 4 Layers</a>
-                <a href="#visualizer" class="nav-chip">3. Live Visualizer</a>
-                <a href="#box-sizing" class="nav-chip">4. Box-Sizing</a>
-                <a href="#shorthand" class="nav-chip">5. Shorthands</a>
-                <a href="#collapsing" class="nav-chip">6. Margin Collapsing</a>
-                <a href="#playground" class="nav-chip">7. Interactive Lab</a>
-                <a href="#profile-card" class="nav-chip">8. Practical Component</a>
+            <nav class="quick-nav" aria-label="Page navigation">
+                <a href="#overview" class="nav-chip">1. Anatomy & Basics</a>
+                <a href="#combinators" class="nav-chip">2. Combinators</a>
+                <a href="#attributes" class="nav-chip">3. Attribute Selectors</a>
+                <a href="#pseudo-classes" class="nav-chip">4. Pseudo-Classes</a>
+                <a href="#pseudo-elements" class="nav-chip">5. Pseudo-Elements</a>
+                <a href="#specificity" class="nav-chip">6. Specificity Matrix</a>
+                <a href="#live-playground" class="nav-chip">7. Interactive Lab</a>
+                <a href="#practical-showcase" class="nav-chip">8. Practical Component</a>
+                <a href="#cheat-sheet" class="nav-chip">9. Quick Reference</a>
             </nav>
         </header>
 
-        <!-- Main Content Container -->
+        <!-- Main Content -->
         <main class="content-container">
 
-            <!-- Section 1: Overview -->
+            <!-- Section 1: Overview & Basic Selectors -->
             <section id="overview" class="doc-section">
                 <div class="section-badge">Section 01</div>
-                <h2 class="section-heading">What is the CSS Box Model?</h2>
+                <h2 class="section-heading">What is a CSS Selector?</h2>
                 <p>
-                    In CSS, <strong>everything is a rectangular box</strong>. When the browser's rendering engine lays out a webpage, it treats every single HTML element (headings, paragraphs, buttons, divs, images) as a box consisting of four concentric rectangular zones.
-                </p>
-                <div class="callout callout-info">
-                    <div class="callout-icon">💡</div>
-                    <div class="callout-body">
-                        <strong>The Fundamental Rule:</strong> The CSS Box Model dictates how much space an element occupies on the screen, how far it stays away from adjacent elements, and how its internal contents are spaced relative to its borders.
-                    </div>
-                </div>
-
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <div class="feature-tag tag-blue">Layout Engine</div>
-                        <h3>Every Element is a Box</h3>
-                        <p>Even circular images or round buttons are internally rectangular boxes rendered with circular border-radius clipping.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-tag tag-purple">Spatial Geometry</div>
-                        <h3>Four Interlocking Layers</h3>
-                        <p>From inside to outside: <strong>Content</strong> &rarr; <strong>Padding</strong> &rarr; <strong>Border</strong> &rarr; <strong>Margin</strong>.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-tag tag-amber">Calculation Mode</div>
-                        <h3>Controlled by Box-Sizing</h3>
-                        <p>The <code>box-sizing</code> property dictates whether padding and borders add to width or stay contained inside it.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Section 2: The 4 Layers -->
-            <section id="layers" class="doc-section">
-                <div class="section-badge">Section 02</div>
-                <h2 class="section-heading">The Four Core Layers of the Box Model</h2>
-                <p>
-                    Each layer serves a distinct architectural purpose in user interface design. Let us dissect each layer from the inside out:
+                    A <strong>CSS Selector</strong> is the pattern or expression placed before a CSS declaration block that tells the browser engine <em>which HTML element(s)</em> on the page should receive the specified design rules.
                 </p>
 
-                <div class="layers-grid">
-                    <!-- Layer 1: Content -->
-                    <div class="layer-card layer-content-card">
-                        <div class="layer-header">
-                            <span class="layer-badge badge-content">Core 1</span>
-                            <h3>1. Content Area</h3>
+                <!-- Rule Anatomy Diagram -->
+                <div class="anatomy-card">
+                    <div class="anatomy-title">Anatomy of a CSS Rule</div>
+                    <div class="anatomy-visual">
+                        <div class="anatomy-part part-selector">
+                            <span class="part-label">Selector</span>
+                            <span class="part-code">.btn-primary:hover</span>
                         </div>
-                        <p class="layer-desc">The innermost zone where actual text, images, or child elements reside.</p>
-                        <ul class="layer-specs">
-                            <li><strong>Controlled By:</strong> <code>width</code>, <code>height</code>, <code>min-width</code>, <code>max-width</code></li>
-                            <li><strong>Background:</strong> Inherits the element's background color or image.</li>
-                            <li><strong>Default Inline behavior:</strong> Shrinks to fit text/children.</li>
-                        </ul>
-                    </div>
-
-                    <!-- Layer 2: Padding -->
-                    <div class="layer-card layer-padding-card">
-                        <div class="layer-header">
-                            <span class="layer-badge badge-padding">Layer 2</span>
-                            <h3>2. Padding Area</h3>
-                        </div>
-                        <p class="layer-desc">The internal breathing room between the content and the element's border.</p>
-                        <ul class="layer-specs">
-                            <li><strong>Controlled By:</strong> <code>padding</code> (top, right, bottom, left)</li>
-                            <li><strong>Background:</strong> Shows the element's background color and pattern.</li>
-                            <li><strong>Clickable:</strong> Yes! Part of the element's hit area.</li>
-                        </ul>
-                    </div>
-
-                    <!-- Layer 3: Border -->
-                    <div class="layer-card layer-border-card">
-                        <div class="layer-header">
-                            <span class="layer-badge badge-border">Layer 3</span>
-                            <h3>3. Border Area</h3>
-                        </div>
-                        <p class="layer-desc">The perimeter line wrapping the padding and content.</p>
-                        <ul class="layer-specs">
-                            <li><strong>Controlled By:</strong> <code>border-width</code>, <code>border-style</code>, <code>border-color</code></li>
-                            <li><strong>Styles:</strong> <code>solid</code>, <code>dashed</code>, <code>dotted</code>, <code>double</code>, <code>groove</code></li>
-                            <li><strong>Border Radius:</strong> Curves the corners of this perimeter.</li>
-                        </ul>
-                    </div>
-
-                    <!-- Layer 4: Margin -->
-                    <div class="layer-card layer-margin-card">
-                        <div class="layer-header">
-                            <span class="layer-badge badge-margin">Layer 4</span>
-                            <h3>4. Margin Area</h3>
-                        </div>
-                        <p class="layer-desc">The external clearance zone pushing adjacent elements away.</p>
-                        <ul class="layer-specs">
-                            <li><strong>Controlled By:</strong> <code>margin</code> (top, right, bottom, left)</li>
-                            <li><strong>Background:</strong> Always transparent (reveals the parent's background).</li>
-                            <li><strong>Special Features:</strong> Accepts negative values, can collapse vertically.</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Section 3: Visualizer Diagram -->
-            <section id="visualizer" class="doc-section">
-                <div class="section-badge">Section 03</div>
-                <h2 class="section-heading">Concentric Box Model Diagram</h2>
-                <p>
-                    Below is an accurate, color-coded visual representation of how the browser inspector models every element:
-                </p>
-
-                <!-- Box Model Nested Visualizer -->
-                <div class="diagram-wrapper">
-                    <!-- MARGIN LAYER -->
-                    <div class="box-model-layer bm-margin">
-                        <div class="bm-label bm-label-margin">
-                            <span>MARGIN (Outer Space &bull; #fde68a / Amber)</span>
-                            <span class="bm-coord">margin: 30px</span>
-                        </div>
-
-                        <!-- BORDER LAYER -->
-                        <div class="box-model-layer bm-border">
-                            <div class="bm-label bm-label-border">
-                                <span>BORDER (Perimeter Frame &bull; #fed7aa / Orange)</span>
-                                <span class="bm-coord">border: 8px solid</span>
-                            </div>
-
-                            <!-- PADDING LAYER -->
-                            <div class="box-model-layer bm-padding">
-                                <div class="bm-label bm-label-padding">
-                                    <span>PADDING (Inner Breath &bull; #bbf7d0 / Green)</span>
-                                    <span class="bm-coord">padding: 24px</span>
-                                </div>
-
-                                <!-- CONTENT LAYER -->
-                                <div class="box-model-layer bm-content">
-                                    <div class="bm-label bm-label-content">
-                                        <span>CONTENT AREA (Text, Images &bull; #bfdbfe / Blue)</span>
-                                    </div>
-                                    <div class="content-dimension-box">
-                                        <span class="dim-text">320 &times; 100 px</span>
-                                        <p class="dim-sub">Target Payload Zone</p>
-                                    </div>
-                                </div>
+                        <div class="anatomy-brace">{</div>
+                        <div class="anatomy-body">
+                            <div class="anatomy-declaration">
+                                <span class="part-label">Property</span>
+                                <span class="part-code text-cyan">background-color</span>
+                                <span class="part-colon">:</span>
+                                <span class="part-label">Value</span>
+                                <span class="part-code text-amber">#4f46e5</span>
+                                <span class="part-semi">;</span>
                             </div>
                         </div>
+                        <div class="anatomy-brace">}</div>
                     </div>
                 </div>
 
-                <div class="color-key-legend">
-                    <span class="legend-item"><span class="swatch swatch-margin"></span> Margin (Clears surrounding space)</span>
-                    <span class="legend-item"><span class="swatch swatch-border"></span> Border (Visual boundary frame)</span>
-                    <span class="legend-item"><span class="swatch swatch-padding"></span> Padding (Internal breathing room)</span>
-                    <span class="legend-item"><span class="swatch swatch-content"></span> Content (Actual elements & text)</span>
-                </div>
-            </section>
+                <h3 class="subsection-heading">The 5 Foundational Basic Selectors</h3>
+                <p>Every stylesheet builds upon these five essential building blocks:</p>
 
-            <!-- Section 4: box-sizing Deep Dive -->
-            <section id="box-sizing" class="doc-section">
-                <div class="section-badge">Section 04</div>
-                <h2 class="section-heading">The Great Sizing Duel: content-box vs border-box</h2>
-                <p>
-                    By default, CSS behaves in a way that catches almost every beginner off guard. The <code>box-sizing</code> property determines how the browser calculates the total rendered width and height of an element.
-                </p>
-
-                <!-- Comparison Showcase -->
-                <div class="sizing-comparison-grid">
-                    <!-- Content Box -->
-                    <div class="sizing-card content-box-card">
-                        <div class="sizing-card-header">
-                            <span class="badge-status badge-legacy">W3C Default</span>
-                            <h3>box-sizing: content-box</h3>
+                <div class="selectors-grid">
+                    <!-- 1. Universal -->
+                    <div class="selector-card">
+                        <div class="selector-card-header">
+                            <span class="syntax-badge badge-universal">*</span>
+                            <h4>Universal Selector</h4>
                         </div>
-                        <p class="sizing-sub">The width and height properties only apply to the <strong>content area</strong>.</p>
-                        
-                        <div class="code-snippet">
-                            <code>
-<span class="c-prop">box-sizing</span>: <span class="c-val">content-box</span>;<br>
-<span class="c-prop">width</span>: <span class="c-val">280px</span>;<br>
-<span class="c-prop">padding</span>: <span class="c-val">20px</span>;<br>
-<span class="c-prop">border</span>: <span class="c-val">6px solid #ef4444</span>;
-                            </code>
-                        </div>
-
-                        <div class="math-box">
-                            <div class="math-title">📐 Rendered Total Width Calculation:</div>
-                            <div class="math-equation">
-                                280px (Width) + 40px (Padding L+R) + 12px (Border L+R) = <strong class="text-danger">332px</strong>
-                            </div>
-                            <p class="math-note">⚠️ Element expands beyond declared 280px! Easily breaks grid layouts.</p>
-                        </div>
-
-                        <!-- Live Visual Box -->
-                        <div class="demo-box-container">
-                            <div class="live-demo-box demo-content-box">
-                                <span class="demo-tag">Actual Rendered: 332px</span>
-                                <p>Grows larger as padding or border increases!</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Border Box -->
-                    <div class="sizing-card border-box-card">
-                        <div class="sizing-card-header">
-                            <span class="badge-status badge-modern">Modern Standard (Recommended)</span>
-                            <h3>box-sizing: border-box</h3>
-                        </div>
-                        <p class="sizing-sub">The declared width and height include <strong>content + padding + border</strong>.</p>
-                        
-                        <div class="code-snippet">
-                            <code>
-<span class="c-prop">box-sizing</span>: <span class="c-val">border-box</span>;<br>
-<span class="c-prop">width</span>: <span class="c-val">280px</span>;<br>
-<span class="c-prop">padding</span>: <span class="c-val">20px</span>;<br>
-<span class="c-prop">border</span>: <span class="c-val">6px solid #10b981</span>;
-                            </code>
-                        </div>
-
-                        <div class="math-box">
-                            <div class="math-title">📐 Rendered Total Width Calculation:</div>
-                            <div class="math-equation">
-                                Total Width = <strong class="text-success">280px Exact</strong><br>
-                                (Content auto-shrinks to: 280 - 40 - 12 = 228px)
-                            </div>
-                            <p class="math-note">✅ Element stays exactly 280px! Predictable, robust responsive layout.</p>
-                        </div>
-
-                        <!-- Live Visual Box -->
-                        <div class="demo-box-container">
-                            <div class="live-demo-box demo-border-box">
-                                <span class="demo-tag">Actual Rendered: 280px</span>
-                                <p>Stays exactly the width you assigned!</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Best Practice Universal Box-Sizing Reset -->
-                <div class="reset-box">
-                    <h3>🏆 The Universal CSS Box-Sizing Best Practice</h3>
-                    <p>Modern frontend web development always starts with this universal reset snippet:</p>
-                    <div class="code-block-large">
-<pre><code><span class="c-comment">/* Universal Box-Sizing Inheritance Reset */</span>
-<span class="c-sel">*, *::before, *::after</span> {
-    <span class="c-prop">box-sizing</span>: <span class="c-val">border-box</span>;
-    <span class="c-prop">margin</span>: <span class="c-val">0</span>;
-    <span class="c-prop">padding</span>: <span class="c-val">0</span>;
+                        <p class="selector-desc">Matches every single element within the entire document tree.</p>
+                        <div class="code-box">
+<pre><code>* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }</code></pre>
+                        </div>
+                        <div class="selector-meta">
+                            <span class="meta-tag">Specificity: 0-0-0</span>
+                            <span class="meta-tag tag-use">Universal Resets</span>
+                        </div>
                     </div>
-                    <p class="reset-expl">
-                        This guarantees every element on your page respects the exact dimensions you specify without unexpected overflow or horizontal scrollbars.
-                    </p>
+
+                    <!-- 2. Type / Element -->
+                    <div class="selector-card">
+                        <div class="selector-card-header">
+                            <span class="syntax-badge badge-element">tag</span>
+                            <h4>Element / Type Selector</h4>
+                        </div>
+                        <p class="selector-desc">Matches all instances of a specified HTML element node.</p>
+                        <div class="code-box">
+<pre><code>p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #334155;
+}</code></pre>
+                        </div>
+                        <div class="selector-meta">
+                            <span class="meta-tag">Specificity: 0-0-1</span>
+                            <span class="meta-tag tag-use">Base Typography</span>
+                        </div>
+                    </div>
+
+                    <!-- 3. Class Selector -->
+                    <div class="selector-card">
+                        <div class="selector-card-header">
+                            <span class="syntax-badge badge-class">.class</span>
+                            <h4>Class Selector</h4>
+                        </div>
+                        <p class="selector-desc">Matches elements having the specified class name. Can be reused freely across elements.</p>
+                        <div class="code-box">
+<pre><code>.card-feature {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+}</code></pre>
+                        </div>
+                        <div class="selector-meta">
+                            <span class="meta-tag">Specificity: 0-1-0</span>
+                            <span class="meta-tag tag-use">Reusable UI Components</span>
+                        </div>
+                    </div>
+
+                    <!-- 4. ID Selector -->
+                    <div class="selector-card">
+                        <div class="selector-card-header">
+                            <span class="syntax-badge badge-id">#id</span>
+                            <h4>ID Selector</h4>
+                        </div>
+                        <p class="selector-desc">Matches a single unique element with the exact matching <code>id</code> attribute.</p>
+                        <div class="code-box">
+<pre><code>#main-navigation {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}</code></pre>
+                        </div>
+                        <div class="selector-meta">
+                            <span class="meta-tag">Specificity: 1-0-0</span>
+                            <span class="meta-tag tag-use">Unique Landmarks</span>
+                        </div>
+                    </div>
+
+                    <!-- 5. Grouping Selector -->
+                    <div class="selector-card">
+                        <div class="selector-card-header">
+                            <span class="syntax-badge badge-group">A, B</span>
+                            <h4>Grouping Selector (Comma)</h4>
+                        </div>
+                        <p class="selector-desc">Applies identical declarations to multiple distinct selectors separated by commas.</p>
+                        <div class="code-box">
+<pre><code>h1, h2, h3, h4 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #0f172a;
+    font-weight: 700;
+}</code></pre>
+                        </div>
+                        <div class="selector-meta">
+                            <span class="meta-tag">Specificity: Per selector</span>
+                            <span class="meta-tag tag-use">DRY Stylesheet</span>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <!-- Section 5: Shorthand Properties & Clockwise Rule -->
-            <section id="shorthand" class="doc-section">
-                <div class="section-badge">Section 05</div>
-                <h2 class="section-heading">Directional Shorthand: The Clockwise TRBL Rule</h2>
+            <!-- Section 2: Combinator Selectors -->
+            <section id="combinators" class="doc-section">
+                <div class="section-badge">Section 02</div>
+                <h2 class="section-heading">Combinators (Relationship Selectors)</h2>
                 <p>
-                    Padding and Margin accept 1, 2, 3, or 4 values. Remember the mnemonic acronym <strong>TRBL ("Trouble")</strong>: <strong>Top &rarr; Right &rarr; Bottom &rarr; Left</strong> (Clockwise starting from 12 o'clock).
+                    Combinators describe the hierarchical or spatial relationship between two or more selectors in the DOM tree. CSS provides <strong>four fundamental combinators</strong>:
                 </p>
 
-                <div class="shorthand-table-wrapper">
-                    <table class="shorthand-table">
+                <div class="combinator-container">
+                    <!-- Combinator 1: Descendant -->
+                    <div class="combinator-row">
+                        <div class="comb-badge-col">
+                            <span class="comb-badge">A B</span>
+                            <span class="comb-name">Descendant (Space)</span>
+                        </div>
+                        <div class="comb-info">
+                            <p class="comb-rule">
+                                Targets <strong>every element B</strong> nested anywhere inside element A, no matter how many levels deep.
+                            </p>
+                            <div class="code-box">
+<pre><code>/* Styles every <span> inside .article-content, even inside <div> or <p> */
+.article-content span {
+    color: #4f46e5;
+    font-weight: 600;
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="comb-diagram">
+                            <div class="tree-node parent">article.article-content
+                                <div class="tree-node matched">p &rarr; <span>Matched!</span></div>
+                                <div class="tree-node">div
+                                    <div class="tree-node matched">span &rarr; <span>Matched (Deep)!</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Combinator 2: Child -->
+                    <div class="combinator-row">
+                        <div class="comb-badge-col">
+                            <span class="comb-badge">A &gt; B</span>
+                            <span class="comb-name">Child Combinator</span>
+                        </div>
+                        <div class="comb-info">
+                            <p class="comb-rule">
+                                Targets <strong>only direct, immediate children B</strong> of element A. Nested grandchildren are strictly ignored.
+                            </p>
+                            <div class="code-box">
+<pre><code>/* Styles only immediate <li> elements under .nav-menu */
+.nav-menu > li {
+    display: inline-block;
+    padding: 0 16px;
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="comb-diagram">
+                            <div class="tree-node parent">ul.nav-menu
+                                <div class="tree-node matched">&gt; li &rarr; <span>Matched (Direct)</span></div>
+                                <div class="tree-node">&gt; li &rarr; ul
+                                    <div class="tree-node skipped">li &rarr; <span>Skipped (Sub-menu)</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Combinator 3: Adjacent Sibling -->
+                    <div class="combinator-row">
+                        <div class="comb-badge-col">
+                            <span class="comb-badge">A + B</span>
+                            <span class="comb-name">Adjacent Sibling</span>
+                        </div>
+                        <div class="comb-info">
+                            <p class="comb-rule">
+                                Targets element B that comes <strong>immediately next to</strong> element A, sharing the exact same parent.
+                            </p>
+                            <div class="code-box">
+<pre><code>/* Styles only the very first paragraph that directly follows an <h2> */
+h2 + p {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: #1e293b;
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="comb-diagram">
+                            <div class="tree-node parent">section
+                                <div class="tree-node">h2: Chapter Title</div>
+                                <div class="tree-node matched">+ p &rarr; <span>Matched (First only!)</span></div>
+                                <div class="tree-node skipped">p &rarr; <span>Skipped (Not adjacent)</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Combinator 4: General Sibling -->
+                    <div class="combinator-row">
+                        <div class="comb-badge-col">
+                            <span class="comb-badge">A ~ B</span>
+                            <span class="comb-name">General Sibling</span>
+                        </div>
+                        <div class="comb-info">
+                            <p class="comb-rule">
+                                Targets <strong>all elements B</strong> that follow element A anywhere afterwards, as long as they share the same parent.
+                            </p>
+                            <div class="code-box">
+<pre><code>/* Styles all <p> elements that appear anytime after an <h2> */
+h2 ~ p {
+    color: #475569;
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="comb-diagram">
+                            <div class="tree-node parent">section
+                                <div class="tree-node">h2: Title</div>
+                                <div class="tree-node matched">~ p &rarr; <span>Matched</span></div>
+                                <div class="tree-node">div (other)</div>
+                                <div class="tree-node matched">~ p &rarr; <span>Matched (Also sibling!)</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Attribute Selectors -->
+            <section id="attributes" class="doc-section">
+                <div class="section-badge">Section 03</div>
+                <h2 class="section-heading">Attribute Selectors</h2>
+                <p>
+                    Attribute selectors match elements based on the presence, exact value, or substring pattern of any HTML attribute (such as <code>type</code>, <code>href</code>, <code>target</code>, <code>disabled</code>, or custom <code>data-*</code> attributes).
+                </p>
+
+                <div class="attr-table-wrapper">
+                    <table class="reference-table">
                         <thead>
                             <tr>
-                                <th>Syntax Pattern</th>
-                                <th>Code Example</th>
-                                <th>Mapping Interpretation</th>
-                                <th>Equivalent Longhand</th>
+                                <th>Pattern</th>
+                                <th>Name &amp; Logic</th>
+                                <th>Real-World Code Example</th>
+                                <th>Typical Use Case</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><span class="pill-syntax">1 Value</span></td>
-                                <td><code>padding: 20px;</code></td>
-                                <td>Applies equally to <strong>All 4 sides</strong></td>
-                                <td><code>top: 20px; right: 20px; bottom: 20px; left: 20px;</code></td>
+                                <td><code>[attr]</code></td>
+                                <td><strong>Attribute Presence</strong>: Element possesses the attribute regardless of its value.</td>
+                                <td><code>input[required] { border-color: #f59e0b; }</code></td>
+                                <td>Highlighting mandatory form inputs</td>
                             </tr>
                             <tr>
-                                <td><span class="pill-syntax">2 Values</span></td>
-                                <td><code>margin: 15px 30px;</code></td>
-                                <td><strong>Vertical</strong> (Top/Bottom) | <strong>Horizontal</strong> (Right/Left)</td>
-                                <td><code>top: 15px; bottom: 15px; right: 30px; left: 30px;</code></td>
+                                <td><code>[attr="val"]</code></td>
+                                <td><strong>Exact Match</strong>: Attribute value is identical to the specified string.</td>
+                                <td><code>input[type="email"] { padding-left: 36px; }</code></td>
+                                <td>Specific form input controls</td>
                             </tr>
                             <tr>
-                                <td><span class="pill-syntax">3 Values</span></td>
-                                <td><code>padding: 10px 25px 40px;</code></td>
-                                <td><strong>Top</strong> | <strong>Horizontal</strong> (Right/Left) | <strong>Bottom</strong></td>
-                                <td><code>top: 10px; right: 25px; bottom: 40px; left: 25px;</code></td>
+                                <td><code>[attr^="val"]</code></td>
+                                <td><strong>Prefix / Starts With</strong>: Value begins with the specified string.</td>
+                                <td><code>a[href^="https://"] { color: #0284c7; }</code></td>
+                                <td>Styling secure external links</td>
                             </tr>
                             <tr>
-                                <td><span class="pill-syntax">4 Values</span></td>
-                                <td><code>margin: 10px 20px 30px 40px;</code></td>
-                                <td><strong>Top</strong> | <strong>Right</strong> | <strong>Bottom</strong> | <strong>Left</strong> (TRBL)</td>
-                                <td><code>top: 10px; right: 20px; bottom: 30px; left: 40px;</code></td>
+                                <td><code>[attr$="val"]</code></td>
+                                <td><strong>Suffix / Ends With</strong>: Value terminates with the specified string.</td>
+                                <td><code>a[href$=".pdf"]::after { content: " 📄"; }</code></td>
+                                <td>Auto-detecting downloadable files</td>
+                            </tr>
+                            <tr>
+                                <td><code>[attr*="val"]</code></td>
+                                <td><strong>Substring / Contains</strong>: Value contains the string anywhere inside.</td>
+                                <td><code>[class*="icon-"] { vertical-align: middle; }</code></td>
+                                <td>Matching icon class families</td>
+                            </tr>
+                            <tr>
+                                <td><code>[attr~="val"]</code></td>
+                                <td><strong>Whitespace List</strong>: Matches value in a space-separated list.</td>
+                                <td><code>[data-tags~="frontend"] { font-weight: bold; }</code></td>
+                                <td>Tag filtering systems</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                <!-- Centering Trick with margin: auto -->
                 <div class="callout callout-tip">
-                    <div class="callout-icon">🎯</div>
+                    <div class="callout-icon">⚡</div>
                     <div class="callout-body">
-                        <strong>Centering Block Elements with Margin:</strong>
-                        Using <code>margin: 0 auto;</code> on a block element with a defined width (e.g., <code>max-width: 800px;</code>) will evenly divide the available horizontal space between the left and right margins, perfectly centering the container on the page!
+                        <strong>Pro Tip:</strong> All attribute selectors have the exact same specificity as a class selector: <code>0-1-0</code>! You can combine attributes with pseudo-classes like <code>input[type="text"]:focus</code>.
                     </div>
                 </div>
             </section>
 
-            <!-- Section 6: Margin Collapsing Phenomenon -->
-            <section id="collapsing" class="doc-section">
+            <!-- Section 4: Pseudo-Classes -->
+            <section id="pseudo-classes" class="doc-section">
+                <div class="section-badge">Section 04</div>
+                <h2 class="section-heading">Pseudo-Classes: State &amp; Tree Position</h2>
+                <p>
+                    A <strong>pseudo-class</strong> (prefixed with a single colon <code>:</code>) selects elements based on their current state, user interaction, or index position in the document tree.
+                </p>
+
+                <div class="tabs-container">
+                    <div class="tab-group">
+                        <div class="tab-card">
+                            <h3 class="tab-card-title">1. User Interaction &amp; State</h3>
+                            <ul class="spec-list">
+                                <li><code>:hover</code> &mdash; Triggered when user hovers cursor over an element.</li>
+                                <li><code>:focus</code> &mdash; Triggered when an element (input/button) receives keyboard/click focus.</li>
+                                <li><code>:focus-visible</code> &mdash; Triggers focus ring strictly for keyboard navigation (Accessibility standard).</li>
+                                <li><code>:active</code> &mdash; Triggered the moment an element is actively clicked/pressed down.</li>
+                                <li><code>:visited</code> &mdash; Styles hyperlinks that the user has already visited in browser history.</li>
+                            </ul>
+                        </div>
+
+                        <div class="tab-card">
+                            <h3 class="tab-card-title">2. Structural &amp; Index Selectors</h3>
+                            <ul class="spec-list">
+                                <li><code>:first-child</code> &mdash; The very first sibling element under its parent.</li>
+                                <li><code>:last-child</code> &mdash; The very last sibling element under its parent.</li>
+                                <li><code>:nth-child(n)</code> &mdash; Matches by mathematical formula (e.g. <code>2n</code>, <code>even</code>, <code>odd</code>, <code>3</code>).</li>
+                                <li><code>:nth-of-type(n)</code> &mdash; Matches the nth sibling of the exact same tag type.</li>
+                                <li><code>:only-child</code> &mdash; Matches only if the parent contains no other children.</li>
+                            </ul>
+                        </div>
+
+                        <div class="tab-card">
+                            <h3 class="tab-card-title">3. Form &amp; Functional Pseudo-Classes</h3>
+                            <ul class="spec-list">
+                                <li><code>:checked</code> &mdash; Applied to active radio buttons, checkboxes, or options.</li>
+                                <li><code>:disabled</code> &mdash; Applied to non-interactive form controls with <code>disabled</code> attribute.</li>
+                                <li><code>:required</code> / <code>:optional</code> &mdash; Applied based on presence of form validation flags.</li>
+                                <li><code>:valid</code> / <code>:invalid</code> &mdash; Triggered dynamically when form inputs pass/fail HTML5 pattern rules.</li>
+                                <li><code>:not(selector)</code> &mdash; Negation pseudo-class: styles elements that DO NOT match the inside argument.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive nth-child Demonstration -->
+                <div class="interactive-demo-block">
+                    <h4 class="demo-title">Visualizing <code>:nth-child</code> in Action</h4>
+                    <p class="demo-sub">Click a preset formula below to see how items in the grid are dynamically targeted:</p>
+                    <div class="nth-buttons">
+                        <button type="button" class="nth-btn active" data-formula="odd">:nth-child(odd)</button>
+                        <button type="button" class="nth-btn" data-formula="even">:nth-child(even)</button>
+                        <button type="button" class="nth-btn" data-formula="3n">:nth-child(3n)</button>
+                        <button type="button" class="nth-btn" data-formula="3n+1">:nth-child(3n+1)</button>
+                        <button type="button" class="nth-btn" data-formula="first">:first-child</button>
+                        <button type="button" class="nth-btn" data-formula="last">:last-child</button>
+                    </div>
+                    <div class="nth-grid" id="nth-grid-display">
+                        <div class="nth-item" data-index="1"><span>Item #1</span></div>
+                        <div class="nth-item" data-index="2"><span>Item #2</span></div>
+                        <div class="nth-item" data-index="3"><span>Item #3</span></div>
+                        <div class="nth-item" data-index="4"><span>Item #4</span></div>
+                        <div class="nth-item" data-index="5"><span>Item #5</span></div>
+                        <div class="nth-item" data-index="6"><span>Item #6</span></div>
+                        <div class="nth-item" data-index="7"><span>Item #7</span></div>
+                        <div class="nth-item" data-index="8"><span>Item #8</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Pseudo-Elements -->
+            <section id="pseudo-elements" class="doc-section">
+                <div class="section-badge">Section 05</div>
+                <h2 class="section-heading">Pseudo-Elements: Virtual DOM Sub-Parts</h2>
+                <p>
+                    A <strong>pseudo-element</strong> (prefixed with double colons <code>::</code>) targets a specific sub-part of an element or generates virtual content without adding extra HTML tags.
+                </p>
+
+                <div class="pseudo-elem-grid">
+                    <div class="elem-card">
+                        <span class="elem-badge">::before</span>
+                        <h4>Virtual Lead Content</h4>
+                        <p>Creates a virtual pseudo-box as the very first child of the element. Requires the <code>content: ""</code> property.</p>
+                        <div class="code-box">
+<pre><code>.badge::before {
+    content: "★";
+    margin-right: 6px;
+    color: #eab308;
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="elem-card">
+                        <span class="elem-badge">::after</span>
+                        <h4>Virtual Trailing Content</h4>
+                        <p>Creates a virtual pseudo-box as the last child. Ideal for decorative underline animations, badges, or clearfixes.</p>
+                        <div class="code-box">
+<pre><code>.link-animated::after {
+    content: "";
+    display: block;
+    height: 2px;
+    background: #4f46e5;
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="elem-card">
+                        <span class="elem-badge">::placeholder</span>
+                        <h4>Form Hint Styling</h4>
+                        <p>Styles the muted placeholder text inside <code>&lt;input&gt;</code> and <code>&lt;textarea&gt;</code> elements.</p>
+                        <div class="code-box">
+<pre><code>input::placeholder {
+    color: #94a3b8;
+    font-style: italic;
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="elem-card">
+                        <span class="elem-badge">::selection</span>
+                        <h4>User Text Highlight</h4>
+                        <p>Customizes the background and text color when a user highlights text on your page.</p>
+                        <div class="code-box">
+<pre><code>::selection {
+    background-color: #6366f1;
+    color: #ffffff;
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 6: Specificity Matrix -->
+            <section id="specificity" class="doc-section">
                 <div class="section-badge">Section 06</div>
-                <h2 class="section-heading">Margin Collapsing Phenomenon</h2>
+                <h2 class="section-heading">The CSS Specificity Matrix</h2>
                 <p>
-                    One of the most unique behaviors in CSS is <strong>vertical margin collapsing</strong>. When two vertical margins meet, they do <em>not</em> add together. Instead, they collapse into a single margin equal to the <strong>larger of the two</strong>!
+                    When multiple conflicting CSS rules target the same element, the browser calculates each selector's <strong>Specificity Score</strong>. The rule with the highest score wins the cascade!
                 </p>
 
-                <div class="collapsing-demo-container">
-                    <div class="collapse-box box-a">
-                        <strong>Element A</strong>
-                        <code>margin-bottom: 40px;</code>
-                    </div>
-
-                    <div class="collapse-gap-indicator">
-                        <span class="gap-ruler"></span>
-                        <div class="gap-text">
-                            <strong>Collapsed Distance = 40px</strong> (NOT 40px + 30px = 70px)
+                <div class="specificity-table-container">
+                    <div class="spec-tuple-visual">
+                        <div class="spec-column col-inline">
+                            <span class="spec-score-title">Inline Style</span>
+                            <span class="spec-number">1 - 0 - 0 - 0</span>
+                            <span class="spec-weight">1000 points</span>
+                            <span class="spec-example"><code>style="color: red;"</code></span>
                         </div>
-                    </div>
-
-                    <div class="collapse-box box-b">
-                        <strong>Element B</strong>
-                        <code>margin-top: 30px;</code>
+                        <div class="spec-gt">&gt;</div>
+                        <div class="spec-column col-id">
+                            <span class="spec-score-title">ID Selectors</span>
+                            <span class="spec-number">0 - 1 - 0 - 0</span>
+                            <span class="spec-weight">100 points</span>
+                            <span class="spec-example"><code>#header, #hero-btn</code></span>
+                        </div>
+                        <div class="spec-gt">&gt;</div>
+                        <div class="spec-column col-class">
+                            <span class="spec-score-title">Classes, Attrs, Pseudo</span>
+                            <span class="spec-number">0 - 0 - 1 - 0</span>
+                            <span class="spec-weight">10 points</span>
+                            <span class="spec-example"><code>.btn, [type="text"], :hover</code></span>
+                        </div>
+                        <div class="spec-gt">&gt;</div>
+                        <div class="spec-column col-element">
+                            <span class="spec-score-title">Elements &amp; Pseudo-Elems</span>
+                            <span class="spec-number">0 - 0 - 0 - 1</span>
+                            <span class="spec-weight">1 point</span>
+                            <span class="spec-example"><code>div, p, h1, ::before</code></span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="rules-list-card">
-                    <h3>Key Rules of Margin Collapsing:</h3>
-                    <ul class="rules-list">
-                        <li><strong>Vertical Only:</strong> Horizontal margins (left and right) <em>never</em> collapse; they always sum together.</li>
-                        <li><strong>Adjacent Siblings:</strong> When two sibling block elements stack vertically, bottom margin of the upper element meets top margin of the lower element.</li>
-                        <li><strong>Parent & Child:</strong> If a parent has no border or padding separating it from its first/last child, their vertical margins collapse together.</li>
-                        <li><strong>Prevention Methods:</strong> Adding <code>padding: 1px 0;</code>, <code>border: 1px solid transparent;</code>, or using <code>display: flex</code> / <code>display: grid</code> stops margin collapsing entirely.</li>
-                    </ul>
+                <div class="specificity-examples-grid">
+                    <div class="spec-calc-row">
+                        <span class="calc-selector"><code>p</code></span>
+                        <span class="calc-score">0 - 0 - 0 - 1 (1 pt)</span>
+                        <span class="calc-desc">Single element selector</span>
+                    </div>
+                    <div class="spec-calc-row">
+                        <span class="calc-selector"><code>div p</code></span>
+                        <span class="calc-score">0 - 0 - 0 - 2 (2 pts)</span>
+                        <span class="calc-desc">Two element selectors</span>
+                    </div>
+                    <div class="spec-calc-row">
+                        <span class="calc-selector"><code>.card p</code></span>
+                        <span class="calc-score">0 - 0 - 1 - 1 (11 pts)</span>
+                        <span class="calc-desc">One class + one element</span>
+                    </div>
+                    <div class="spec-calc-row">
+                        <span class="calc-selector"><code>.card .title:hover</code></span>
+                        <span class="calc-score">0 - 0 - 3 - 0 (30 pts)</span>
+                        <span class="calc-desc">Two classes + one pseudo-class</span>
+                    </div>
+                    <div class="spec-calc-row">
+                        <span class="calc-selector"><code>#main-hero .btn</code></span>
+                        <span class="calc-score">0 - 1 - 1 - 0 (110 pts)</span>
+                        <span class="calc-desc">One ID + one class</span>
+                    </div>
+                    <div class="spec-calc-row highlight-calc">
+                        <span class="calc-selector"><code>#nav .list &gt; li:first-child a</code></span>
+                        <span class="calc-score">0 - 1 - 2 - 2 (122 pts)</span>
+                        <span class="calc-desc">1 ID, 1 class, 1 pseudo-class, 2 elements</span>
+                    </div>
+                </div>
+
+                <div class="callout callout-warning">
+                    <div class="callout-icon">⚠️</div>
+                    <div class="callout-body">
+                        <strong>The Nuclear Option: <code>!important</code></strong><br>
+                        Appending <code>!important</code> overrides normal specificity completely. Use it sparingly for accessibility utility classes; never use it to fix poor selector specificity architecture!
+                    </div>
                 </div>
             </section>
 
-            <!-- Section 7: Interactive Lab Playground -->
-            <section id="playground" class="doc-section">
+            <!-- Section 7: Live Interactive Selector Playground -->
+            <section id="live-playground" class="doc-section">
                 <div class="section-badge">Section 07</div>
-                <h2 class="section-heading">Interactive Box Model Playground</h2>
+                <h2 class="section-heading">Interactive Live Selector Testing Lab</h2>
                 <p>
-                    Test the CSS Box Model dynamically! Adjust the sliders and toggle <code>box-sizing</code> below to see real-time updates of dimensions and geometry:
+                    Test any CSS selector in real-time! Type your selector or click one of the quick presets below. The lab will instantly parse your query, calculate its specificity score, highlight matching elements in the target canvas, and count how many nodes matched.
                 </p>
 
-                <div class="lab-card">
+                <div class="lab-workspace">
+                    <!-- Control Bar -->
                     <div class="lab-controls">
-                        <!-- Box-Sizing Selector -->
-                        <div class="control-group">
-                            <label for="select-box-sizing"><strong>box-sizing:</strong></label>
-                            <select id="select-box-sizing" class="form-select">
-                                <option value="border-box" selected>border-box (Modern Standard)</option>
-                                <option value="content-box">content-box (W3C Default)</option>
-                            </select>
+                        <label for="custom-selector-input" class="lab-label">Enter CSS Selector:</label>
+                        <div class="input-action-row">
+                            <input type="text" id="custom-selector-input" value=".badge" placeholder="e.g. .card, h4, [data-featured], .list > li:first-child" autocomplete="off" spellcheck="false">
+                            <button type="button" id="btn-apply-selector" class="btn-primary">Test Selector</button>
+                            <button type="button" id="btn-reset-selector" class="btn-secondary">Reset</button>
                         </div>
 
-                        <!-- Width Range -->
-                        <div class="control-group">
-                            <div class="slider-header">
-                                <label for="slider-width">Declared Width:</label>
-                                <span id="val-width" class="slider-val">260px</span>
-                            </div>
-                            <input type="range" id="slider-width" min="180" max="360" value="260" step="10">
+                        <!-- Quick Presets -->
+                        <div class="preset-chips-wrap">
+                            <span class="preset-label">Quick Presets:</span>
+                            <button type="button" class="preset-chip" data-sel="h4">h4</button>
+                            <button type="button" class="preset-chip" data-sel=".item">.item</button>
+                            <button type="button" class="preset-chip" data-sel="#vip-badge">#vip-badge</button>
+                            <button type="button" class="preset-chip" data-sel=".sample-box > p">.sample-box &gt; p</button>
+                            <button type="button" class="preset-chip" data-sel="h4 + p">h4 + p</button>
+                            <button type="button" class="preset-chip" data-sel="[data-status='active']">[data-status="active"]</button>
+                            <button type="button" class="preset-chip" data-sel=".item:nth-child(2)">.item:nth-child(2)</button>
+                            <button type="button" class="preset-chip" data-sel=".item:not(.active)">.item:not(.active)</button>
+                            <button type="button" class="preset-chip" data-sel="input[type='checkbox']:checked">input:checked</button>
                         </div>
 
-                        <!-- Padding Range -->
-                        <div class="control-group">
-                            <div class="slider-header">
-                                <label for="slider-padding">Padding:</label>
-                                <span id="val-padding" class="slider-val">20px</span>
+                        <!-- Feedback Bar -->
+                        <div class="lab-feedback-bar">
+                            <div class="feedback-stat">
+                                <span class="stat-label">Matched Elements:</span>
+                                <span class="stat-value" id="match-count">1 element</span>
                             </div>
-                            <input type="range" id="slider-padding" min="0" max="40" value="20" step="5">
-                        </div>
-
-                        <!-- Border Range -->
-                        <div class="control-group">
-                            <div class="slider-header">
-                                <label for="slider-border">Border Width:</label>
-                                <span id="val-border" class="slider-val">4px</span>
+                            <div class="feedback-stat">
+                                <span class="stat-label">Specificity Score:</span>
+                                <span class="stat-value tag-score" id="specificity-display">(0, 0, 1, 0)</span>
                             </div>
-                            <input type="range" id="slider-border" min="0" max="16" value="4" step="2">
-                        </div>
-
-                        <!-- Margin Range -->
-                        <div class="control-group">
-                            <div class="slider-header">
-                                <label for="slider-margin">Margin:</label>
-                                <span id="val-margin" class="slider-val">15px</span>
+                            <div class="feedback-stat">
+                                <span class="stat-label">Selector Status:</span>
+                                <span class="stat-status valid" id="selector-status">Valid Selector</span>
                             </div>
-                            <input type="range" id="slider-margin" min="0" max="30" value="15" step="5">
                         </div>
                     </div>
 
-                    <!-- Live Target Preview Area -->
-                    <div class="lab-stage">
-                        <div class="stage-wrapper" id="stage-wrapper">
-                            <div id="interactive-element" class="interactive-box">
-                                <div class="inner-content-indicator">
-                                    <span class="content-tag">Content Payload</span>
-                                    <div id="metric-content" class="metric-line">Content Width: 212px</div>
+                    <!-- Target Canvas Sandbox -->
+                    <div class="canvas-panel">
+                        <div class="canvas-header">
+                            <span>Target HTML Sandbox (#sandbox-arena)</span>
+                            <span class="canvas-tag">Matching nodes pulse with cyan glow</span>
+                        </div>
+                        <div class="canvas-arena" id="sandbox-arena">
+
+                            <!-- Sandbox Item 1 -->
+                            <div class="sample-box card-sample" id="card-alpha">
+                                <h4>Article Headline One</h4>
+                                <p>This paragraph immediately follows the headline.</p>
+                                <p>This is a secondary paragraph inside the sample box.</p>
+                                <span class="badge" id="vip-badge">VIP Member</span>
+                            </div>
+
+                            <!-- Sandbox Item 2: List with attributes and siblings -->
+                            <div class="sample-box list-sample">
+                                <h4>Team Status Roster</h4>
+                                <ul class="sample-list">
+                                    <li class="item active" data-status="active">
+                                        <span class="user-name">Alex Rivera</span>
+                                        <span class="status-pill">Online</span>
+                                    </li>
+                                    <li class="item" data-status="idle">
+                                        <span class="user-name">Morgan Smith</span>
+                                        <span class="status-pill">Away</span>
+                                    </li>
+                                    <li class="item active" data-status="active">
+                                        <span class="user-name">Jordan Lee</span>
+                                        <span class="status-pill">Online</span>
+                                    </li>
+                                    <li class="item" data-status="offline">
+                                        <span class="user-name">Taylor Kim</span>
+                                        <span class="status-pill">Offline</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Sandbox Item 3: Form Elements -->
+                            <div class="sample-box form-sample">
+                                <h4>Interactive Inputs</h4>
+                                <div class="form-row">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" checked>
+                                        <span>Receive Daily Digest</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox">
+                                        <span>Enable Push Alerts</span>
+                                    </label>
+                                </div>
+                                <div class="input-sample-wrap">
+                                    <input type="text" placeholder="Type here..." value="Sample Input Content">
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Computed Real-time Specs Card -->
-                        <div class="metrics-display-card">
-                            <div class="metric-row">
-                                <span>Declared Width:</span>
-                                <strong id="out-declared">260px</strong>
-                            </div>
-                            <div class="metric-row">
-                                <span>Horizontal Padding (L+R):</span>
-                                <strong id="out-padding">40px</strong>
-                            </div>
-                            <div class="metric-row">
-                                <span>Horizontal Border (L+R):</span>
-                                <strong id="out-border">8px</strong>
-                            </div>
-                            <div class="metric-row highlight-row">
-                                <span>Actual Rendered On-Screen Width:</span>
-                                <strong id="out-rendered" class="text-accent">260px</strong>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Section 8: Practical Component Showcase -->
-            <section id="profile-card" class="doc-section">
+            <!-- Section 8: Practical Real-World UI Component -->
+            <section id="practical-showcase" class="doc-section">
                 <div class="section-badge">Section 08</div>
-                <h2 class="section-heading">Practical Component: Box Model in UI Design</h2>
+                <h2 class="section-heading">Practical Component: Production UI Card</h2>
                 <p>
-                    Every polished user interface component depends on deliberate box model choices. Here is a real-world Author Card with annotated box model zones:
+                    See how modern CSS selectors power real-world user interface components like subscription tiers, badges, attribute-driven states, and pseudo-element effects:
                 </p>
 
-                <div class="practical-showcase">
-                    <article class="author-ui-card">
-                        <div class="author-avatar-wrapper">
-                            <img src="avatar.jpg" alt="Harish - Frontend Developer Profile" class="author-avatar" width="96" height="96">
+                <div class="showcase-grid">
+                    <!-- Pricing Card with Advanced Selectors -->
+                    <div class="pricing-card" data-plan="pro" data-popular="true">
+                        <div class="popular-ribbon">Most Popular</div>
+                        <div class="pricing-header">
+                            <span class="plan-tag">Developer Pro</span>
+                            <div class="plan-price">
+                                <span class="currency">$</span>
+                                <span class="amount">29</span>
+                                <span class="period">/ month</span>
+                            </div>
+                            <p class="plan-desc">For front-end engineers mastering modern web styling.</p>
                         </div>
-                        <div class="author-info">
-                            <div class="author-tag">Frontend Developer</div>
-                            <h3 class="author-name">Harish</h3>
-                            <p class="author-bio">
-                                Building 100 Days of Frontend Excellence. Today exploring CSS Box Model, layout geometry, spacing systems, and responsive design fundamentals.
-                            </p>
-                            <div class="author-skills">
-                                <span class="skill-pill">HTML5</span>
-                                <span class="skill-pill">CSS3 Box Model</span>
-                                <span class="skill-pill">Flexbox</span>
-                                <span class="skill-pill">UI Design</span>
+
+                        <ul class="plan-features">
+                            <li class="feature-included">Universal &amp; Combinator mastery</li>
+                            <li class="feature-included">Attribute-driven reactive designs</li>
+                            <li class="feature-included">Pseudo-class state transitions</li>
+                            <li class="feature-included">Zero <code>!important</code> specificity control</li>
+                            <li class="feature-pending">Unlimited interactive sandboxes</li>
+                        </ul>
+
+                        <div class="pricing-action">
+                            <button type="button" class="btn-tier-cta">Get Started Today</button>
+                        </div>
+                    </div>
+
+                    <!-- Explanatory Breakdown Card -->
+                    <div class="breakdown-card">
+                        <h4 class="breakdown-title">Selectors Used in this Pricing Card</h4>
+                        <div class="breakdown-list">
+                            <div class="breakdown-item">
+                                <span class="code-pill">.pricing-card[data-popular="true"]</span>
+                                <p>Attribute selector that applies the glowing gradient border only to the popular tier.</p>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="code-pill">.plan-features &gt; li::before</span>
+                                <p>Child combinator + pseudo-element to render custom checkmark icons dynamically without extra HTML.</p>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="code-pill">.btn-tier-cta:hover:active</span>
+                                <p>Chained pseudo-classes to produce a tactile 3D press-down interaction feedback.</p>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="code-pill">.plan-features li:last-child</span>
+                                <p>Targets the final feature item to give it a distinctive pending-access badge.</p>
                             </div>
                         </div>
-                    </article>
-
-                    <div class="annotation-card">
-                        <h3>Box Model Anatomy of the Card:</h3>
-                        <ol class="anatomy-list">
-                            <li>
-                                <strong>Card Margin:</strong> <code>margin: 0 auto;</code> centers the card horizontally inside its section.
-                            </li>
-                            <li>
-                                <strong>Card Border:</strong> <code>border: 1px solid #e2e8f0;</code> provides a subtle structural outline.
-                            </li>
-                            <li>
-                                <strong>Card Padding:</strong> <code>padding: 24px;</code> keeps all avatar and text content comfortably spaced from the card borders.
-                            </li>
-                            <li>
-                                <strong>Avatar Spacing:</strong> <code>border: 3px solid #3b82f6;</code> frame with <code>margin-bottom: 16px;</code> creates proportional clearance.
-                            </li>
-                            <li>
-                                <strong>Skill Badges:</strong> <code>padding: 4px 12px;</code> and <code>border-radius: 999px;</code> yields modern pill styling.
-                            </li>
-                        </ol>
                     </div>
                 </div>
             </section>
 
-            <!-- Section 9: Summary & Best Practices -->
-            <section class="doc-section summary-section">
+            <!-- Section 9: Quick Reference & Best Practices -->
+            <section id="cheat-sheet" class="doc-section">
                 <div class="section-badge">Section 09</div>
-                <h2 class="section-heading">Key Takeaways & Best Practices</h2>
-                
+                <h2 class="section-heading">Quick Reference &amp; Best Practices</h2>
                 <div class="summary-cards-grid">
                     <div class="summary-box">
                         <div class="s-icon">1</div>
-                        <h4>Always Reset to border-box</h4>
-                        <p>Set <code>box-sizing: border-box</code> globally. It prevents padding from expanding your element widths and breaking layouts.</p>
+                        <h4>Favor Classes for Styling</h4>
+                        <p>Keep your CSS maintainable by styling via classes (<code>.btn</code>, <code>.card</code>). Avoid over-relying on IDs (<code>#btn</code>) which inflate specificity.</p>
                     </div>
                     <div class="summary-box">
                         <div class="s-icon">2</div>
-                        <h4>Padding vs Margin Purpose</h4>
-                        <p>Use <strong>Padding</strong> for internal breathing space (inside the background/border). Use <strong>Margin</strong> to separate different elements.</p>
+                        <h4>Keep Selectors Shallow</h4>
+                        <p>Avoid deep nesting like <code>div.wrapper &gt; div &gt; ul &gt; li &gt; a &gt; span</code>. Aim for 1-2 levels of specificity to keep rules easy to override.</p>
                     </div>
                     <div class="summary-box">
                         <div class="s-icon">3</div>
-                        <h4>Remember TRBL Order</h4>
-                        <p>Shorthand always proceeds clockwise: <strong>Top &rarr; Right &rarr; Bottom &rarr; Left</strong>.</p>
+                        <h4>Leverage Combinators</h4>
+                        <p>Use child combinators (<code>&gt;</code>) when child isolation is needed, and sibling combinators (<code>+</code>, <code>~</code>) for rhythmic content spacing.</p>
                     </div>
                     <div class="summary-box">
                         <div class="s-icon">4</div>
-                        <h4>Beware Margin Collapse</h4>
-                        <p>Adjacent vertical margins collapse into the largest value. Use Flexbox or Grid gaps (<code>gap: 16px</code>) for cleaner, non-collapsing spacing.</p>
+                        <h4>Respect the Cascade</h4>
+                        <p>Resolve specificity issues by lowering high-specificity rules instead of slapping <code>!important</code> onto declarations.</p>
                     </div>
                 </div>
             </section>
@@ -561,9 +783,9 @@
         <!-- Footer -->
         <footer class="main-footer">
             <div class="footer-links">
-                <a href="https://github.com/harish-0987/DAY-12-OF-FRONTEND" class="f-link">&larr; Day 12: Types of CSS</a>
+                <a href="https://github.com/harish-0987/DAY-13-OF-FRONTEND" class="f-link">&larr; Day 13: CSS Box Model</a>
                 <span class="f-divider">&bull;</span>
-                <a href="https://github.com/harish-0987/DAY-13-OF-FRONTEND" class="f-link f-current">Day 13: CSS Box Model (Current)</a>
+                <a href="https://github.com/harish-0987/DAY-14-OF-FRONTEND" class="f-link f-current">Day 14: Important CSS Selectors (Current)</a>
                 <span class="f-divider">&bull;</span>
                 <a href="https://github.com/harish-0987" class="f-link">GitHub Profile</a>
             </div>
@@ -573,77 +795,174 @@
         </footer>
     </div>
 
-    <!-- Interactive Script for Live Box Model Lab -->
+    <!-- JavaScript for Live Selector Playground and :nth-child visualizer -->
     <script>
-        const selectBoxSizing = document.getElementById('select-box-sizing');
-        const sliderWidth = document.getElementById('slider-width');
-        const sliderPadding = document.getElementById('slider-padding');
-        const sliderBorder = document.getElementById('slider-border');
-        const sliderMargin = document.getElementById('slider-margin');
+        // --- 1. nth-child formula visualizer ---
+        const nthButtons = document.querySelectorAll('.nth-btn');
+        const nthItems = document.querySelectorAll('.nth-item');
 
-        const valWidth = document.getElementById('val-width');
-        const valPadding = document.getElementById('val-padding');
-        const valBorder = document.getElementById('val-border');
-        const valMargin = document.getElementById('val-margin');
+        function applyNthFormula(formula) {
+            nthItems.forEach((item, index) => {
+                const n = index + 1; // 1-based index
+                let matches = false;
 
-        const outDeclared = document.getElementById('out-declared');
-        const outPadding = document.getElementById('out-padding');
-        const outBorder = document.getElementById('out-border');
-        const outRendered = document.getElementById('out-rendered');
-        const metricContent = document.getElementById('metric-content');
+                if (formula === 'odd') {
+                    matches = (n % 2 !== 0);
+                } else if (formula === 'even') {
+                    matches = (n % 2 === 0);
+                } else if (formula === '3n') {
+                    matches = (n % 3 === 0);
+                } else if (formula === '3n+1') {
+                    matches = ((n - 1) % 3 === 0);
+                } else if (formula === 'first') {
+                    matches = (n === 1);
+                } else if (formula === 'last') {
+                    matches = (n === nthItems.length);
+                }
 
-        const box = document.getElementById('interactive-element');
-
-        function updateBoxModel() {
-            const sizing = selectBoxSizing.value;
-            const w = parseInt(sliderWidth.value, 10);
-            const p = parseInt(sliderPadding.value, 10);
-            const b = parseInt(sliderBorder.value, 10);
-            const m = parseInt(sliderMargin.value, 10);
-
-            // Update label indicators
-            valWidth.textContent = w + 'px';
-            valPadding.textContent = p + 'px';
-            valBorder.textContent = b + 'px';
-            valMargin.textContent = m + 'px';
-
-            // Apply styles to interactive element
-            box.style.boxSizing = sizing;
-            box.style.width = w + 'px';
-            box.style.padding = p + 'px';
-            box.style.borderWidth = b + 'px';
-            box.style.margin = m + 'px auto';
-
-            // Calculations
-            const horizontalPadding = p * 2;
-            const horizontalBorder = b * 2;
-
-            let renderedWidth = 0;
-            let contentWidth = 0;
-
-            if (sizing === 'content-box') {
-                renderedWidth = w + horizontalPadding + horizontalBorder;
-                contentWidth = w;
-            } else {
-                renderedWidth = w;
-                contentWidth = Math.max(0, w - horizontalPadding - horizontalBorder);
-            }
-
-            outDeclared.textContent = w + 'px';
-            outPadding.textContent = horizontalPadding + 'px (' + p + 'px L + ' + p + 'px R)';
-            outBorder.textContent = horizontalBorder + 'px (' + b + 'px L + ' + b + 'px R)';
-            outRendered.textContent = renderedWidth + 'px';
-            metricContent.textContent = 'Content Width: ' + contentWidth + 'px';
+                if (matches) {
+                    item.classList.add('nth-matched');
+                } else {
+                    item.classList.remove('nth-matched');
+                }
+            });
         }
 
-        selectBoxSizing.addEventListener('change', updateBoxModel);
-        sliderWidth.addEventListener('input', updateBoxModel);
-        sliderPadding.addEventListener('input', updateBoxModel);
-        sliderBorder.addEventListener('input', updateBoxModel);
-        sliderMargin.addEventListener('input', updateBoxModel);
+        nthButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                nthButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                applyNthFormula(btn.getAttribute('data-formula'));
+            });
+        });
+        // Initial run
+        applyNthFormula('odd');
 
-        // Initial setup
-        updateBoxModel();
+
+        // --- 2. Live Selector Playground & Specificity Calculator ---
+        const inputSelector = document.getElementById('custom-selector-input');
+        const btnApply = document.getElementById('btn-apply-selector');
+        const btnReset = document.getElementById('btn-reset-selector');
+        const matchCountEl = document.getElementById('match-count');
+        const specificityDisplay = document.getElementById('specificity-display');
+        const selectorStatus = document.getElementById('selector-status');
+        const arena = document.getElementById('sandbox-arena');
+        const presetChips = document.querySelectorAll('.preset-chip');
+
+        // Simple specificity calculator (Inline, ID, Class/Attr/Pseudo, Element)
+        function calculateSpecificity(selector) {
+            let ids = 0;
+            let classes = 0;
+            let elements = 0;
+
+            // Remove pseudo-element double colons for counting
+            let clean = selector.trim();
+
+            // Check for pseudo-elements (::before, ::after, ::placeholder, etc.)
+            const pseudoElements = clean.match(/::[a-zA-Z-]+/g) || [];
+            elements += pseudoElements.length;
+            clean = clean.replace(/::[a-zA-Z-]+/g, ' ');
+
+            // Check for IDs (#name)
+            const idMatches = clean.match(/#[a-zA-Z0-9_-]+/g) || [];
+            ids += idMatches.length;
+            clean = clean.replace(/#[a-zA-Z0-9_-]+/g, ' ');
+
+            // Check for attributes [attr=val]
+            const attrMatches = clean.match(/\[[^\]]+\]/g) || [];
+            classes += attrMatches.length;
+            clean = clean.replace(/\[[^\]]+\]/g, ' ');
+
+            // Check for classes (.class)
+            const classMatches = clean.match(/\.[a-zA-Z0-9_-]+/g) || [];
+            classes += classMatches.length;
+            clean = clean.replace(/\.[a-zA-Z0-9_-]+/g, ' ');
+
+            // Check for pseudo-classes (:hover, :nth-child(n), etc.)
+            const pseudoClassMatches = clean.match(/:[a-zA-Z-]+(\([^)]*\))?/g) || [];
+            classes += pseudoClassMatches.length;
+            clean = clean.replace(/:[a-zA-Z-]+(\([^)]*\))?/g, ' ');
+
+            // Split remaining tokens and match HTML tags / elements
+            const tokens = clean.split(/[\s>+~,]+/).filter(Boolean);
+            const htmlTags = [
+                'h1','h2','h3','h4','h5','h6','p','span','div','ul','ol','li',
+                'a','button','input','label','section','article','header','footer',
+                'main','table','tr','td','th','tbody','thead','img','svg','form'
+            ];
+            tokens.forEach(tok => {
+                if (htmlTags.includes(tok.toLowerCase())) {
+                    elements++;
+                } else if (tok !== '*' && tok.length > 0) {
+                    elements++;
+                }
+            });
+
+            return {
+                tuple: `(0, ${ids}, ${classes}, ${elements})`,
+                weight: ids * 100 + classes * 10 + elements
+            };
+        }
+
+        function clearArenaHighlights() {
+            const allElements = arena.querySelectorAll('*');
+            allElements.forEach(el => el.classList.remove('sandbox-highlight'));
+        }
+
+        function runSelectorTest() {
+            clearArenaHighlights();
+            const rawSelector = inputSelector.value.trim();
+
+            if (!rawSelector) {
+                matchCountEl.textContent = '0 elements';
+                specificityDisplay.textContent = '(0, 0, 0, 0)';
+                selectorStatus.textContent = 'Empty Selector';
+                selectorStatus.className = 'stat-status invalid';
+                return;
+            }
+
+            try {
+                // Test selector validity within the arena
+                const matchedNodes = arena.querySelectorAll(rawSelector);
+
+                matchedNodes.forEach(node => {
+                    node.classList.add('sandbox-highlight');
+                });
+
+                const count = matchedNodes.length;
+                matchCountEl.textContent = count === 1 ? '1 element' : `${count} elements`;
+                selectorStatus.textContent = 'Valid Selector';
+                selectorStatus.className = 'stat-status valid';
+
+                const spec = calculateSpecificity(rawSelector);
+                specificityDisplay.textContent = spec.tuple;
+            } catch (err) {
+                matchCountEl.textContent = '0 elements';
+                selectorStatus.textContent = 'Invalid Syntax';
+                selectorStatus.className = 'stat-status invalid';
+                specificityDisplay.textContent = 'Error';
+            }
+        }
+
+        btnApply.addEventListener('click', runSelectorTest);
+        inputSelector.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') runSelectorTest();
+        });
+
+        btnReset.addEventListener('click', () => {
+            inputSelector.value = '.badge';
+            runSelectorTest();
+        });
+
+        presetChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                inputSelector.value = chip.getAttribute('data-sel');
+                runSelectorTest();
+            });
+        });
+
+        // Run initial test
+        runSelectorTest();
     </script>
 </body>
 </html>
