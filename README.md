@@ -254,4 +254,4 @@ The included `index.html` file includes an interactive, real-time testing sandbo
 - GitHub: [@harish-0987](https://github.com/harish-0987)
 - 100 Days of Frontend Challenge
 
-&copy; 2026 Harish &bull; Built with HTML5 &amp; Modern Vanilla CSS
+&copy; 2026 Harish &bull; Built with HTML5 & Modern Vanilla CSS

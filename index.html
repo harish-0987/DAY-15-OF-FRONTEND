@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Day 14 Frontend: Mastering Important CSS Selectors - Universal, Type, Class, ID, Combinators, Attributes, Pseudo-Classes, Pseudo-Elements, and Specificity.">
+    <meta name="description" content="Day 15 Frontend: Complete CSS Flexbox Guide - Container properties, Item flex factors, Interactive Studio, and Practical UI Layouts.">
     <meta name="author" content="Harish (harish-0987)">
-    <title>Harish | Day 14 Frontend - Important CSS Selectors</title>
+    <title>Harish | Day 15 Frontend - CSS Flexbox</title>
 
     <!-- Google Fonts for Modern Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,949 +20,1039 @@
     <div class="page-wrapper">
         <!-- Header Banner -->
         <header class="main-header">
-            <div class="badge-pill">Day 14 of 100 Days Frontend Challenge</div>
-            <h1 class="header-title">Important CSS Selectors</h1>
+            <div class="badge-pill">Day 15 of 100 Days Frontend Challenge</div>
+            <h1 class="header-title">CSS Flexbox (Flexible Box Layout)</h1>
             <p class="header-subtitle">
-                The precision targeting system of CSS: Learn how to select, filter, and style elements with accuracy using Universal, Element, Class, ID, Combinator, Attribute, Pseudo-Class, and Pseudo-Element selectors.
+                Master the fundamental 1-dimensional layout engine of modern web design. Learn main and cross axes, container alignment rules, item sizing factors (grow, shrink, basis), and build responsive real-world UI patterns.
             </p>
             <nav class="quick-nav" aria-label="Page navigation">
-                <a href="#overview" class="nav-chip">1. Anatomy & Basics</a>
-                <a href="#combinators" class="nav-chip">2. Combinators</a>
-                <a href="#attributes" class="nav-chip">3. Attribute Selectors</a>
-                <a href="#pseudo-classes" class="nav-chip">4. Pseudo-Classes</a>
-                <a href="#pseudo-elements" class="nav-chip">5. Pseudo-Elements</a>
-                <a href="#specificity" class="nav-chip">6. Specificity Matrix</a>
-                <a href="#live-playground" class="nav-chip">7. Interactive Lab</a>
-                <a href="#practical-showcase" class="nav-chip">8. Practical Component</a>
-                <a href="#cheat-sheet" class="nav-chip">9. Quick Reference</a>
+                <a href="#core-concepts" class="nav-chip">1. Core Concepts</a>
+                <a href="#axes-system" class="nav-chip">2. Two Axes System</a>
+                <a href="#container-props" class="nav-chip">3. Container (Parent) Props</a>
+                <a href="#item-props" class="nav-chip">4. Item (Child) Props</a>
+                <a href="#interactive-studio" class="nav-chip">5. Interactive Live Studio</a>
+                <a href="#practical-recipes" class="nav-chip">6. Practical UI Recipes</a>
+                <a href="#cheat-sheet" class="nav-chip">7. Quick Cheat Sheet</a>
             </nav>
         </header>
 
         <!-- Main Content -->
         <main class="content-container">
 
-            <!-- Section 1: Overview & Basic Selectors -->
-            <section id="overview" class="doc-section">
+            <!-- Section 1: Core Concepts -->
+            <section id="core-concepts" class="doc-section">
                 <div class="section-badge">Section 01</div>
-                <h2 class="section-heading">What is a CSS Selector?</h2>
-                <p>
-                    A <strong>CSS Selector</strong> is the pattern or expression placed before a CSS declaration block that tells the browser engine <em>which HTML element(s)</em> on the page should receive the specified design rules.
+                <h2 class="section-heading">What is CSS Flexbox?</h2>
+                <p class="section-lead">
+                    The <strong>Flexible Box Module (Flexbox)</strong> is a one-dimensional layout system designed to align, distribute, and proportion space among items in a container, even when their sizes are unknown or dynamic.
                 </p>
 
-                <!-- Rule Anatomy Diagram -->
-                <div class="anatomy-card">
-                    <div class="anatomy-title">Anatomy of a CSS Rule</div>
-                    <div class="anatomy-visual">
-                        <div class="anatomy-part part-selector">
-                            <span class="part-label">Selector</span>
-                            <span class="part-code">.btn-primary:hover</span>
-                        </div>
-                        <div class="anatomy-brace">{</div>
-                        <div class="anatomy-body">
-                            <div class="anatomy-declaration">
-                                <span class="part-label">Property</span>
-                                <span class="part-code text-cyan">background-color</span>
-                                <span class="part-colon">:</span>
-                                <span class="part-label">Value</span>
-                                <span class="part-code text-amber">#4f46e5</span>
-                                <span class="part-semi">;</span>
+                <div class="info-callout">
+                    <strong>💡 Why "One-Dimensional"?</strong> Flexbox deals with layout along a single dimension at a time — either as a <strong>horizontal row</strong> or as a <strong>vertical column</strong>. (For simultaneous 2D grids, CSS Grid is used).
+                </div>
+
+                <h3 class="subsection-heading">The Core Hierarchy: Flex Container vs. Flex Items</h3>
+                <p>Everything in Flexbox is built upon a parent-child relationship:</p>
+
+                <div class="concept-diagram">
+                    <div class="diagram-header">
+                        <span class="diagram-title">Flexbox Relationship Architecture</span>
+                        <span class="diagram-badge">display: flex</span>
+                    </div>
+                    <div class="flex-hierarchy-canvas">
+                        <span class="container-tag">Parent Flex Container (.container)</span>
+                        <div class="hierarchy-items">
+                            <div class="hierarchy-item">
+                                <span class="item-badge">Direct Child 01</span>
+                                <div class="item-name">Flex Item 1</div>
+                            </div>
+                            <div class="hierarchy-item">
+                                <span class="item-badge">Direct Child 02</span>
+                                <div class="item-name">Flex Item 2</div>
+                            </div>
+                            <div class="hierarchy-item">
+                                <span class="item-badge">Direct Child 03</span>
+                                <div class="item-name">Flex Item 3</div>
                             </div>
                         </div>
-                        <div class="anatomy-brace">}</div>
                     </div>
                 </div>
 
-                <h3 class="subsection-heading">The 5 Foundational Basic Selectors</h3>
-                <p>Every stylesheet builds upon these five essential building blocks:</p>
-
-                <div class="selectors-grid">
-                    <!-- 1. Universal -->
-                    <div class="selector-card">
-                        <div class="selector-card-header">
-                            <span class="syntax-badge badge-universal">*</span>
-                            <h4>Universal Selector</h4>
+                <div class="properties-grid" style="margin-top: 20px;">
+                    <div class="prop-card">
+                        <div class="prop-card-header">
+                            <span class="prop-name">display: flex</span>
+                            <span class="prop-tag tag-container">Container</span>
                         </div>
-                        <p class="selector-desc">Matches every single element within the entire document tree.</p>
+                        <p class="prop-desc">Creates a <strong>block-level</strong> flex container. The container expands to fill 100% of the available parent width.</p>
                         <div class="code-box">
-<pre><code>* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><code>.container {
+    display: flex;
 }</code></pre>
-                        </div>
-                        <div class="selector-meta">
-                            <span class="meta-tag">Specificity: 0-0-0</span>
-                            <span class="meta-tag tag-use">Universal Resets</span>
                         </div>
                     </div>
 
-                    <!-- 2. Type / Element -->
-                    <div class="selector-card">
-                        <div class="selector-card-header">
-                            <span class="syntax-badge badge-element">tag</span>
-                            <h4>Element / Type Selector</h4>
+                    <div class="prop-card">
+                        <div class="prop-card-header">
+                            <span class="prop-name">display: inline-flex</span>
+                            <span class="prop-tag tag-container">Container</span>
                         </div>
-                        <p class="selector-desc">Matches all instances of a specified HTML element node.</p>
+                        <p class="prop-desc">Creates an <strong>inline-level</strong> flex container. The container only takes up as much width as its children require.</p>
                         <div class="code-box">
-<pre><code>p {
-    font-size: 16px;
-    line-height: 1.6;
-    color: #334155;
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><code>.container-inline {
+    display: inline-flex;
 }</code></pre>
-                        </div>
-                        <div class="selector-meta">
-                            <span class="meta-tag">Specificity: 0-0-1</span>
-                            <span class="meta-tag tag-use">Base Typography</span>
-                        </div>
-                    </div>
-
-                    <!-- 3. Class Selector -->
-                    <div class="selector-card">
-                        <div class="selector-card-header">
-                            <span class="syntax-badge badge-class">.class</span>
-                            <h4>Class Selector</h4>
-                        </div>
-                        <p class="selector-desc">Matches elements having the specified class name. Can be reused freely across elements.</p>
-                        <div class="code-box">
-<pre><code>.card-feature {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 24px;
-}</code></pre>
-                        </div>
-                        <div class="selector-meta">
-                            <span class="meta-tag">Specificity: 0-1-0</span>
-                            <span class="meta-tag tag-use">Reusable UI Components</span>
-                        </div>
-                    </div>
-
-                    <!-- 4. ID Selector -->
-                    <div class="selector-card">
-                        <div class="selector-card-header">
-                            <span class="syntax-badge badge-id">#id</span>
-                            <h4>ID Selector</h4>
-                        </div>
-                        <p class="selector-desc">Matches a single unique element with the exact matching <code>id</code> attribute.</p>
-                        <div class="code-box">
-<pre><code>#main-navigation {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}</code></pre>
-                        </div>
-                        <div class="selector-meta">
-                            <span class="meta-tag">Specificity: 1-0-0</span>
-                            <span class="meta-tag tag-use">Unique Landmarks</span>
-                        </div>
-                    </div>
-
-                    <!-- 5. Grouping Selector -->
-                    <div class="selector-card">
-                        <div class="selector-card-header">
-                            <span class="syntax-badge badge-group">A, B</span>
-                            <h4>Grouping Selector (Comma)</h4>
-                        </div>
-                        <p class="selector-desc">Applies identical declarations to multiple distinct selectors separated by commas.</p>
-                        <div class="code-box">
-<pre><code>h1, h2, h3, h4 {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    color: #0f172a;
-    font-weight: 700;
-}</code></pre>
-                        </div>
-                        <div class="selector-meta">
-                            <span class="meta-tag">Specificity: Per selector</span>
-                            <span class="meta-tag tag-use">DRY Stylesheet</span>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Section 2: Combinator Selectors -->
-            <section id="combinators" class="doc-section">
+            <!-- Section 2: Two Axes System -->
+            <section id="axes-system" class="doc-section">
                 <div class="section-badge">Section 02</div>
-                <h2 class="section-heading">Combinators (Relationship Selectors)</h2>
-                <p>
-                    Combinators describe the hierarchical or spatial relationship between two or more selectors in the DOM tree. CSS provides <strong>four fundamental combinators</strong>:
+                <h2 class="section-heading">The Two Axes: Main Axis & Cross Axis</h2>
+                <p class="section-lead">
+                    Every alignment property in Flexbox depends on understanding the <strong>Main Axis</strong> and the <strong>Cross Axis</strong>. Their directions change dynamically based on the <code>flex-direction</code> property!
                 </p>
 
-                <div class="combinator-container">
-                    <!-- Combinator 1: Descendant -->
-                    <div class="combinator-row">
-                        <div class="comb-badge-col">
-                            <span class="comb-badge">A B</span>
-                            <span class="comb-name">Descendant (Space)</span>
+                <div class="axes-card">
+                    <div class="axes-toggle-bar">
+                        <span class="axes-toggle-label">Test Direction:</span>
+                        <button class="btn-pill active" onclick="setAxisDemo('row', this)">flex-direction: row</button>
+                        <button class="btn-pill" onclick="setAxisDemo('row-reverse', this)">row-reverse</button>
+                        <button class="btn-pill" onclick="setAxisDemo('column', this)">column</button>
+                        <button class="btn-pill" onclick="setAxisDemo('column-reverse', this)">column-reverse</button>
+                    </div>
+
+                    <div class="axes-display-area">
+                        <div class="axis-indicator axis-main" id="mainAxisIndicator">
+                            <span id="mainAxisText">➔ MAIN AXIS: Left to Right (Horizontal X)</span>
                         </div>
-                        <div class="comb-info">
-                            <p class="comb-rule">
-                                Targets <strong>every element B</strong> nested anywhere inside element A, no matter how many levels deep.
-                            </p>
-                            <div class="code-box">
-<pre><code>/* Styles every <span> inside .article-content, even inside <div> or <p> */
-.article-content span {
-    color: #4f46e5;
-    font-weight: 600;
+
+                        <div class="axes-sample-box" id="axesSampleBox" style="flex-direction: row;">
+                            <div class="axes-item">Item 1</div>
+                            <div class="axes-item">Item 2</div>
+                            <div class="axes-item">Item 3</div>
+                        </div>
+
+                        <div class="axis-indicator axis-cross" id="crossAxisIndicator">
+                            <span id="crossAxisText">⬇ CROSS AXIS: Top to Bottom (Vertical Y)</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Container Properties -->
+            <section id="container-props" class="doc-section">
+                <div class="section-badge">Section 03</div>
+                <h2 class="section-heading">Flex Container Properties (Parent)</h2>
+                <p class="section-lead">
+                    These rules are applied to the <strong>parent element</strong> to control the layout, flow, alignment, and spacing of all its direct children.
+                </p>
+
+                <div class="properties-grid">
+                    <!-- flex-direction -->
+                    <div class="prop-card">
+                        <div class="prop-card-header">
+                            <span class="prop-name">flex-direction</span>
+                            <span class="prop-tag tag-container">Parent</span>
+                        </div>
+                        <p class="prop-desc">Establishes the main-axis direction. Values: <code>row</code> (default), <code>row-reverse</code>, <code>column</code>, <code>column-reverse</code>.</p>
+                        <div class="code-box">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><code>.container {
+    flex-direction: row; /* or column */
 }</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- flex-wrap -->
+                    <div class="prop-card">
+                        <div class="prop-card-header">
+                            <span class="prop-name">flex-wrap</span>
+                            <span class="prop-tag tag-container">Parent</span>
+                        </div>
+                        <p class="prop-desc">Controls whether flex items are forced onto a single line or can wrap onto multiple lines. Values: <code>nowrap</code>, <code>wrap</code>, <code>wrap-reverse</code>.</p>
+                        <div class="code-box">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><code>.container {
+    flex-wrap: wrap; /* allows multi-line */
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- flex-flow -->
+                    <div class="prop-card">
+                        <div class="prop-card-header">
+                            <span class="prop-name">flex-flow</span>
+                            <span class="prop-tag tag-container">Shorthand</span>
+                        </div>
+                        <p class="prop-desc">Combines <code>flex-direction</code> and <code>flex-wrap</code> into a single convenient declaration.</p>
+                        <div class="code-box">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><code>.container {
+    /* &lt;direction&gt; &lt;wrap&gt; */
+    flex-flow: row wrap;
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- justify-content -->
+                    <div class="prop-card">
+                        <div class="prop-card-header">
+                            <span class="prop-name">justify-content</span>
+                            <span class="prop-tag tag-container">Main Axis</span>
+                        </div>
+                        <p class="prop-desc">Aligns items along the <strong>Main Axis</strong>. Values: <code>flex-start</code>, <code>center</code>, <code>flex-end</code>, <code>space-between</code>, <code>space-around</code>, <code>space-evenly</code>.</p>
+                        <div class="code-box">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><code>.container {
+    justify-content: space-between;
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- align-items -->
+                    <div class="prop-card">
+                        <div class="prop-card-header">
+                            <span class="prop-name">align-items</span>
+                            <span class="prop-tag tag-container">Cross Axis</span>
+                        </div>
+                        <p class="prop-desc">Aligns items along the <strong>Cross Axis</strong> for the current line. Values: <code>stretch</code> (default), <code>flex-start</code>, <code>center</code>, <code>flex-end</code>, <code>baseline</code>.</p>
+                        <div class="code-box">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><code>.container {
+    align-items: center;
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- align-content -->
+                    <div class="prop-card">
+                        <div class="prop-card-header">
+                            <span class="prop-name">align-content</span>
+                            <span class="prop-tag tag-container">Multi-Line</span>
+                        </div>
+                        <p class="prop-desc">Aligns multi-line flex tracks along the cross axis. Only active when <code>flex-wrap: wrap</code> is set and items wrap onto 2+ lines.</p>
+                        <div class="code-box">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><code>.container {
+    align-content: space-around;
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- gap -->
+                    <div class="prop-card">
+                        <div class="prop-card-header">
+                            <span class="prop-name">gap (row-gap, col-gap)</span>
+                            <span class="prop-tag tag-container">Spacing</span>
+                        </div>
+                        <p class="prop-desc">Defines precise gutters between flex items without annoying margin-reset hacks on first/last items!</p>
+                        <div class="code-box">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><code>.container {
+    gap: 1.5rem; /* row & col gap */
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: Item Properties -->
+            <section id="item-props" class="doc-section">
+                <div class="section-badge">Section 04</div>
+                <h2 class="section-heading">Flex Item Properties (Children)</h2>
+                <p class="section-lead">
+                    These properties are applied directly to individual <strong>child elements</strong> to define how each item sizes, shrinks, grows, or aligns relative to its siblings.
+                </p>
+
+                <div class="properties-grid">
+                    <!-- order -->
+                    <div class="prop-card">
+                        <div class="prop-card-header">
+                            <span class="prop-name">order</span>
+                            <span class="prop-tag tag-item">Child Item</span>
+                        </div>
+                        <p class="prop-desc">Controls the visual render order independently of the source HTML. Default is <code>0</code>. Accepts positive and negative numbers.</p>
+                        <div class="code-box">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><code>.item-first {
+    order: -1; /* jumps to start */
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- flex-grow -->
+                    <div class="prop-card">
+                        <div class="prop-card-header">
+                            <span class="prop-name">flex-grow</span>
+                            <span class="prop-tag tag-item">Child Item</span>
+                        </div>
+                        <p class="prop-desc">Defines an item's ability to grow to absorb remaining free space along the main axis. Default: <code>0</code> (does not grow).</p>
+                        <div class="code-box">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><code>.item-expand {
+    flex-grow: 1; /* fills space */
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- flex-shrink -->
+                    <div class="prop-card">
+                        <div class="prop-card-header">
+                            <span class="prop-name">flex-shrink</span>
+                            <span class="prop-tag tag-item">Child Item</span>
+                        </div>
+                        <p class="prop-desc">Defines an item's ability to shrink when space is restricted. Default: <code>1</code>. Set to <code>0</code> to prevent squishing.</p>
+                        <div class="code-box">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><code>.avatar-icon {
+    flex-shrink: 0; /* never squish */
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- flex-basis -->
+                    <div class="prop-card">
+                        <div class="prop-card-header">
+                            <span class="prop-name">flex-basis</span>
+                            <span class="prop-tag tag-item">Child Item</span>
+                        </div>
+                        <p class="prop-desc">Sets default initial size of an item before space distribution. Accepts <code>px</code>, <code>%</code>, <code>rem</code>, or <code>auto</code>.</p>
+                        <div class="code-box">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><code>.sidebar {
+    flex-basis: 260px;
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- flex shorthand -->
+                    <div class="prop-card">
+                        <div class="prop-card-header">
+                            <span class="prop-name">flex (Shorthand)</span>
+                            <span class="prop-tag tag-item">Recommended</span>
+                        </div>
+                        <p class="prop-desc">Shorthand for <code>flex-grow</code>, <code>flex-shrink</code>, and <code>flex-basis</code> combined. E.g. <code>flex: 1 1 200px;</code>.</p>
+                        <div class="code-box">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><code>.card {
+    /* &lt;grow&gt; &lt;shrink&gt; &lt;basis&gt; */
+    flex: 1 1 250px;
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- align-self -->
+                    <div class="prop-card">
+                        <div class="prop-card-header">
+                            <span class="prop-name">align-self</span>
+                            <span class="prop-tag tag-item">Cross Axis</span>
+                        </div>
+                        <p class="prop-desc">Overrides the container's <code>align-items</code> value for this single item. Values: <code>auto</code>, <code>flex-start</code>, <code>center</code>, <code>flex-end</code>, <code>stretch</code>.</p>
+                        <div class="code-box">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><code>.special-child {
+    align-self: flex-end;
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Interactive Flexbox Studio -->
+            <section id="interactive-studio" class="doc-section">
+                <div class="section-badge">Section 05</div>
+                <h2 class="section-heading">Interactive Flexbox Studio (Live Lab)</h2>
+                <p class="section-lead">
+                    Tweak live properties in real-time. Watch how container directions, alignment values, gaps, and item flex factors change the layout dynamically.
+                </p>
+
+                <div class="studio-wrapper">
+                    <!-- Controls Sidebar -->
+                    <div class="studio-controls-panel">
+                        <div class="control-group">
+                            <label class="control-label">
+                                <span>Direction:</span>
+                                <span class="control-prop-name">flex-direction</span>
+                            </label>
+                            <select id="ctrlDirection" class="control-select" onchange="updateStudio()">
+                                <option value="row" selected>row</option>
+                                <option value="row-reverse">row-reverse</option>
+                                <option value="column">column</option>
+                                <option value="column-reverse">column-reverse</option>
+                            </select>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">
+                                <span>Main Axis:</span>
+                                <span class="control-prop-name">justify-content</span>
+                            </label>
+                            <select id="ctrlJustify" class="control-select" onchange="updateStudio()">
+                                <option value="flex-start" selected>flex-start</option>
+                                <option value="center">center</option>
+                                <option value="flex-end">flex-end</option>
+                                <option value="space-between">space-between</option>
+                                <option value="space-around">space-around</option>
+                                <option value="space-evenly">space-evenly</option>
+                            </select>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">
+                                <span>Cross Axis:</span>
+                                <span class="control-prop-name">align-items</span>
+                            </label>
+                            <select id="ctrlAlign" class="control-select" onchange="updateStudio()">
+                                <option value="stretch">stretch</option>
+                                <option value="flex-start">flex-start</option>
+                                <option value="center" selected>center</option>
+                                <option value="flex-end">flex-end</option>
+                                <option value="baseline">baseline</option>
+                            </select>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">
+                                <span>Wrapping:</span>
+                                <span class="control-prop-name">flex-wrap</span>
+                            </label>
+                            <select id="ctrlWrap" class="control-select" onchange="updateStudio()">
+                                <option value="nowrap" selected>nowrap</option>
+                                <option value="wrap">wrap</option>
+                                <option value="wrap-reverse">wrap-reverse</option>
+                            </select>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">
+                                <span>Item Spacing:</span>
+                                <span class="control-prop-name">gap</span>
+                            </label>
+                            <select id="ctrlGap" class="control-select" onchange="updateStudio()">
+                                <option value="8px">8px</option>
+                                <option value="16px" selected>16px</option>
+                                <option value="24px">24px</option>
+                                <option value="32px">32px</option>
+                            </select>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">Manage Items:</label>
+                            <div class="btn-group-row">
+                                <button class="btn-action" onclick="addItem()">+ Add Box</button>
+                                <button class="btn-action" onclick="removeItem()">- Remove Box</button>
+                                <button class="btn-action" onclick="resetStudio()">Reset</button>
                             </div>
                         </div>
-                        <div class="comb-diagram">
-                            <div class="tree-node parent">article.article-content
-                                <div class="tree-node matched">p &rarr; <span>Matched!</span></div>
-                                <div class="tree-node">div
-                                    <div class="tree-node matched">span &rarr; <span>Matched (Deep)!</span></div>
+                    </div>
+
+                    <!-- Live Stage & Inspector -->
+                    <div class="studio-stage-panel">
+                        <!-- Inspector for Selected Item -->
+                        <div class="item-inspector-bar">
+                            <div class="inspector-title">
+                                <span>🎯 Item Inspector:</span>
+                                <span id="selectedItemLabel">Box #1 Selected</span>
+                            </div>
+                            <div class="inspector-field">
+                                <label>grow:</label>
+                                <input type="number" id="itemGrow" value="0" min="0" max="10" onchange="applyItemProperty()">
+                            </div>
+                            <div class="inspector-field">
+                                <label>order:</label>
+                                <input type="number" id="itemOrder" value="0" min="-10" max="10" onchange="applyItemProperty()">
+                            </div>
+                            <div class="inspector-field">
+                                <label>align-self:</label>
+                                <select id="itemAlignSelf" onchange="applyItemProperty()">
+                                    <option value="auto" selected>auto</option>
+                                    <option value="flex-start">flex-start</option>
+                                    <option value="center">center</option>
+                                    <option value="flex-end">flex-end</option>
+                                    <option value="stretch">stretch</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Live Container Canvas -->
+                        <div class="live-stage-container" id="liveStage">
+                            <div class="stage-badge">&lt;div class="flex-container"&gt;</div>
+                            <div class="flex-box-item selected" onclick="selectItem(this, 1)">
+                                <span class="item-index">1</span>
+                                <span class="item-meta">flex item</span>
+                            </div>
+                            <div class="flex-box-item" onclick="selectItem(this, 2)">
+                                <span class="item-index">2</span>
+                                <span class="item-meta">flex item</span>
+                            </div>
+                            <div class="flex-box-item" onclick="selectItem(this, 3)">
+                                <span class="item-index">3</span>
+                                <span class="item-meta">flex item</span>
+                            </div>
+                            <div class="flex-box-item" onclick="selectItem(this, 4)">
+                                <span class="item-index">4</span>
+                                <span class="item-meta">flex item</span>
+                            </div>
+                        </div>
+
+                        <!-- Real-Time Generated CSS Block -->
+                        <div class="live-code-card">
+                            <div class="code-title">Generated Container CSS</div>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy CSS</button>
+                            <pre class="live-code-text" id="generatedCssCode">.flex-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 16px;
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 6: Practical Real-World Patterns -->
+            <section id="practical-recipes" class="doc-section">
+                <div class="section-badge">Section 06</div>
+                <h2 class="section-heading">Basic-Level Real-World Layout Recipes</h2>
+                <p class="section-lead">
+                    Here are the 5 essential UI patterns you will use constantly in production websites. Click each tab to inspect the interactive live preview and clean starter code.
+                </p>
+
+                <nav class="pattern-tabs-nav" aria-label="Pattern tabs">
+                    <button class="tab-btn active" onclick="switchPattern('pattern-center', this)">1. Perfect Center</button>
+                    <button class="tab-btn" onclick="switchPattern('pattern-navbar', this)">2. Responsive Navbar</button>
+                    <button class="tab-btn" onclick="switchPattern('pattern-cards', this)">3. Fluid Card Grid</button>
+                    <button class="tab-btn" onclick="switchPattern('pattern-media', this)">4. Media Object</button>
+                    <button class="tab-btn" onclick="switchPattern('pattern-footer', this)">5. Sticky Footer</button>
+                </nav>
+
+                <!-- Pattern 1: Perfect Center -->
+                <div id="pattern-center" class="pattern-content active">
+                    <div class="recipe-display-card">
+                        <div class="recipe-preview-box">
+                            <div class="demo-center-parent">
+                                <div class="demo-center-child">
+                                    <h4>🎯 Perfect Center</h4>
+                                    <p>Horizontally &amp; vertically centered with 2 lines of CSS!</p>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Combinator 2: Child -->
-                    <div class="combinator-row">
-                        <div class="comb-badge-col">
-                            <span class="comb-badge">A &gt; B</span>
-                            <span class="comb-name">Child Combinator</span>
+                        <div class="recipe-explanation">
+                            <strong>Why it works:</strong> Setting <code>justify-content: center</code> centers items along the main axis (X), while <code>align-items: center</code> centers items along the cross axis (Y).
                         </div>
-                        <div class="comb-info">
-                            <p class="comb-rule">
-                                Targets <strong>only direct, immediate children B</strong> of element A. Nested grandchildren are strictly ignored.
-                            </p>
-                            <div class="code-box">
-<pre><code>/* Styles only immediate <li> elements under .nav-menu */
-.nav-menu > li {
-    display: inline-block;
-    padding: 0 16px;
+                        <div class="recipe-code-wrapper">
+                            <div class="recipe-code-col">
+                                <div class="recipe-col-title">HTML Structure</div>
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><code>&lt;div class="center-container"&gt;
+    &lt;div class="card"&gt;
+        &lt;h4&gt;Perfect Center&lt;/h4&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                            </div>
+                            <div class="recipe-code-col">
+                                <div class="recipe-col-title">CSS Stylesheet</div>
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><code>.center-container {
+    display: flex;
+    justify-content: center; /* X-axis */
+    align-items: center;     /* Y-axis */
+    min-height: 220px;
 }</code></pre>
                             </div>
                         </div>
-                        <div class="comb-diagram">
-                            <div class="tree-node parent">ul.nav-menu
-                                <div class="tree-node matched">&gt; li &rarr; <span>Matched (Direct)</span></div>
-                                <div class="tree-node">&gt; li &rarr; ul
-                                    <div class="tree-node skipped">li &rarr; <span>Skipped (Sub-menu)</span></div>
+                    </div>
+                </div>
+
+                <!-- Pattern 2: Responsive Navbar -->
+                <div id="pattern-navbar" class="pattern-content">
+                    <div class="recipe-display-card">
+                        <div class="recipe-preview-box">
+                            <header class="demo-navbar">
+                                <div class="demo-brand">⚡ DevBrand</div>
+                                <nav class="demo-nav-links">
+                                    <a href="#core-concepts">Home</a>
+                                    <a href="#container-props">Features</a>
+                                    <a href="#interactive-studio">Studio</a>
+                                </nav>
+                                <button class="demo-nav-cta">Sign In</button>
+                            </header>
+                        </div>
+                        <div class="recipe-explanation">
+                            <strong>The Flex Trick:</strong> Applying <code>margin-left: auto</code> to the CTA button absorbs all remaining space along the row, effortlessly pushing it to the far right edge!
+                        </div>
+                        <div class="recipe-code-wrapper">
+                            <div class="recipe-code-col">
+                                <div class="recipe-col-title">HTML Structure</div>
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><code>&lt;header class="navbar"&gt;
+    &lt;div class="brand"&gt;⚡ DevBrand&lt;/div&gt;
+    &lt;nav class="links"&gt;
+        &lt;a href="#"&gt;Home&lt;/a&gt;
+        &lt;a href="#"&gt;Features&lt;/a&gt;
+    &lt;/nav&gt;
+    &lt;button class="cta-btn"&gt;Sign In&lt;/button&gt;
+&lt;/header&gt;</code></pre>
+                            </div>
+                            <div class="recipe-code-col">
+                                <div class="recipe-col-title">CSS Stylesheet</div>
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><code>.navbar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.cta-btn {
+    margin-left: auto; /* Pushes to far right */
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pattern 3: Fluid Card Grid -->
+                <div id="pattern-cards" class="pattern-content">
+                    <div class="recipe-display-card">
+                        <div class="recipe-preview-box">
+                            <div class="demo-card-deck">
+                                <div class="demo-card">
+                                    <span class="demo-card-tag">HTML5</span>
+                                    <h4>Semantic Elements</h4>
+                                    <p>Clean structure for modern search engines and accessibility.</p>
+                                </div>
+                                <div class="demo-card">
+                                    <span class="demo-card-tag">CSS3</span>
+                                    <h4>Flexbox Architecture</h4>
+                                    <p>Flexible 1D responsive alignment without floats.</p>
+                                </div>
+                                <div class="demo-card">
+                                    <span class="demo-card-tag">JavaScript</span>
+                                    <h4>DOM Manipulation</h4>
+                                    <p>Interactive web interfaces with snappy performance.</p>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Combinator 3: Adjacent Sibling -->
-                    <div class="combinator-row">
-                        <div class="comb-badge-col">
-                            <span class="comb-badge">A + B</span>
-                            <span class="comb-name">Adjacent Sibling</span>
+                        <div class="recipe-explanation">
+                            <strong>Why it works:</strong> The container uses <code>flex-wrap: wrap; gap: 16px;</code> and each card uses <code>flex: 1 1 200px;</code>. Cards automatically wrap into new rows on small screens and share remaining space equally!
                         </div>
-                        <div class="comb-info">
-                            <p class="comb-rule">
-                                Targets element B that comes <strong>immediately next to</strong> element A, sharing the exact same parent.
-                            </p>
-                            <div class="code-box">
-<pre><code>/* Styles only the very first paragraph that directly follows an <h2> */
-h2 + p {
-    font-size: 1.15rem;
-    font-weight: 500;
-    color: #1e293b;
+                        <div class="recipe-code-wrapper">
+                            <div class="recipe-code-col">
+                                <div class="recipe-col-title">HTML Structure</div>
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><code>&lt;div class="card-grid"&gt;
+    &lt;div class="card"&gt;Card 1&lt;/div&gt;
+    &lt;div class="card"&gt;Card 2&lt;/div&gt;
+    &lt;div class="card"&gt;Card 3&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                            </div>
+                            <div class="recipe-code-col">
+                                <div class="recipe-col-title">CSS Stylesheet</div>
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><code>.card-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+.card {
+    /* grow: 1, shrink: 1, base: 200px */
+    flex: 1 1 200px;
 }</code></pre>
                             </div>
                         </div>
-                        <div class="comb-diagram">
-                            <div class="tree-node parent">section
-                                <div class="tree-node">h2: Chapter Title</div>
-                                <div class="tree-node matched">+ p &rarr; <span>Matched (First only!)</span></div>
-                                <div class="tree-node skipped">p &rarr; <span>Skipped (Not adjacent)</span></div>
+                    </div>
+                </div>
+
+                <!-- Pattern 4: Media Object -->
+                <div id="pattern-media" class="pattern-content">
+                    <div class="recipe-display-card">
+                        <div class="recipe-preview-box">
+                            <div class="demo-media-card">
+                                <div class="demo-avatar">H</div>
+                                <div class="demo-media-body">
+                                    <h4>Harish (harish-0987)</h4>
+                                    <p>Full-Stack developer crafting daily frontend web apps with semantic HTML and clean, responsive CSS.</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Combinator 4: General Sibling -->
-                    <div class="combinator-row">
-                        <div class="comb-badge-col">
-                            <span class="comb-badge">A ~ B</span>
-                            <span class="comb-name">General Sibling</span>
+                        <div class="recipe-explanation">
+                            <strong>Crucial Rule:</strong> Always give the avatar <code>flex-shrink: 0;</code> so that long text in the sibling body never shrinks or squishes your image/icon!
                         </div>
-                        <div class="comb-info">
-                            <p class="comb-rule">
-                                Targets <strong>all elements B</strong> that follow element A anywhere afterwards, as long as they share the same parent.
-                            </p>
-                            <div class="code-box">
-<pre><code>/* Styles all <p> elements that appear anytime after an <h2> */
-h2 ~ p {
-    color: #475569;
+                        <div class="recipe-code-wrapper">
+                            <div class="recipe-code-col">
+                                <div class="recipe-col-title">HTML Structure</div>
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><code>&lt;div class="media"&gt;
+    &lt;div class="avatar"&gt;H&lt;/div&gt;
+    &lt;div class="media-body"&gt;
+        &lt;h4&gt;Harish&lt;/h4&gt;
+        &lt;p&gt;Frontend developer building daily...&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                            </div>
+                            <div class="recipe-code-col">
+                                <div class="recipe-col-title">CSS Stylesheet</div>
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><code>.media {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+.avatar {
+    flex-shrink: 0; /* Prevents squishing */
+}
+.media-body {
+    flex-grow: 1;
 }</code></pre>
                             </div>
                         </div>
-                        <div class="comb-diagram">
-                            <div class="tree-node parent">section
-                                <div class="tree-node">h2: Title</div>
-                                <div class="tree-node matched">~ p &rarr; <span>Matched</span></div>
-                                <div class="tree-node">div (other)</div>
-                                <div class="tree-node matched">~ p &rarr; <span>Matched (Also sibling!)</span></div>
+                    </div>
+                </div>
+
+                <!-- Pattern 5: Sticky Footer -->
+                <div id="pattern-footer" class="pattern-content">
+                    <div class="recipe-display-card">
+                        <div class="recipe-preview-box">
+                            <div class="demo-layout-frame">
+                                <div class="demo-layout-header">Website Header (Fixed height)</div>
+                                <div class="demo-layout-body">
+                                    <p>Page Content (Even if short, the footer below stays firmly anchored at the bottom).</p>
+                                </div>
+                                <div class="demo-layout-footer">&copy; 2026 100 Days Frontend &bull; Sticky Footer</div>
+                            </div>
+                        </div>
+                        <div class="recipe-explanation">
+                            <strong>Why it works:</strong> The parent layout uses <code>display: flex; flex-direction: column; min-height: 100vh;</code> and the middle <code>main</code> element has <code>flex: 1 0 auto;</code> which expands to push the footer down.
+                        </div>
+                        <div class="recipe-code-wrapper">
+                            <div class="recipe-code-col">
+                                <div class="recipe-col-title">HTML Structure</div>
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><code>&lt;div class="app-layout"&gt;
+    &lt;header&gt;Header&lt;/header&gt;
+    &lt;main&gt;Page Content&lt;/main&gt;
+    &lt;footer&gt;Sticky Footer&lt;/footer&gt;
+&lt;/div&gt;</code></pre>
+                            </div>
+                            <div class="recipe-code-col">
+                                <div class="recipe-col-title">CSS Stylesheet</div>
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><code>.app-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+main {
+    flex: 1 0 auto; /* Expands remaining height */
+}</code></pre>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Section 3: Attribute Selectors -->
-            <section id="attributes" class="doc-section">
-                <div class="section-badge">Section 03</div>
-                <h2 class="section-heading">Attribute Selectors</h2>
-                <p>
-                    Attribute selectors match elements based on the presence, exact value, or substring pattern of any HTML attribute (such as <code>type</code>, <code>href</code>, <code>target</code>, <code>disabled</code>, or custom <code>data-*</code> attributes).
-                </p>
+            <!-- Section 7: Cheat Sheet Table -->
+            <section id="cheat-sheet" class="doc-section">
+                <div class="section-badge">Section 07</div>
+                <h2 class="section-heading">Flexbox Quick Reference &amp; Cheat Sheet</h2>
+                <p class="section-lead">A fast reference guide for all container and item properties.</p>
 
-                <div class="attr-table-wrapper">
-                    <table class="reference-table">
+                <div class="table-responsive">
+                    <table class="cheat-table">
                         <thead>
                             <tr>
-                                <th>Pattern</th>
-                                <th>Name &amp; Logic</th>
-                                <th>Real-World Code Example</th>
-                                <th>Typical Use Case</th>
+                                <th>Target</th>
+                                <th>Property</th>
+                                <th>Default</th>
+                                <th>Available Values</th>
+                                <th>Description</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><code>[attr]</code></td>
-                                <td><strong>Attribute Presence</strong>: Element possesses the attribute regardless of its value.</td>
-                                <td><code>input[required] { border-color: #f59e0b; }</code></td>
-                                <td>Highlighting mandatory form inputs</td>
+                                <td><strong>Container</strong></td>
+                                <td><code>display</code></td>
+                                <td><code>block</code></td>
+                                <td><code>flex</code>, <code>inline-flex</code></td>
+                                <td>Activates flexbox context for direct children.</td>
                             </tr>
                             <tr>
-                                <td><code>[attr="val"]</code></td>
-                                <td><strong>Exact Match</strong>: Attribute value is identical to the specified string.</td>
-                                <td><code>input[type="email"] { padding-left: 36px; }</code></td>
-                                <td>Specific form input controls</td>
+                                <td><strong>Container</strong></td>
+                                <td><code>flex-direction</code></td>
+                                <td><code>row</code></td>
+                                <td><code>row</code>, <code>row-reverse</code>, <code>column</code>, <code>column-reverse</code></td>
+                                <td>Defines the direction of the Main Axis.</td>
                             </tr>
                             <tr>
-                                <td><code>[attr^="val"]</code></td>
-                                <td><strong>Prefix / Starts With</strong>: Value begins with the specified string.</td>
-                                <td><code>a[href^="https://"] { color: #0284c7; }</code></td>
-                                <td>Styling secure external links</td>
+                                <td><strong>Container</strong></td>
+                                <td><code>flex-wrap</code></td>
+                                <td><code>nowrap</code></td>
+                                <td><code>nowrap</code>, <code>wrap</code>, <code>wrap-reverse</code></td>
+                                <td>Allows flex items to break into multiple lines.</td>
                             </tr>
                             <tr>
-                                <td><code>[attr$="val"]</code></td>
-                                <td><strong>Suffix / Ends With</strong>: Value terminates with the specified string.</td>
-                                <td><code>a[href$=".pdf"]::after { content: " 📄"; }</code></td>
-                                <td>Auto-detecting downloadable files</td>
+                                <td><strong>Container</strong></td>
+                                <td><code>justify-content</code></td>
+                                <td><code>flex-start</code></td>
+                                <td><code>flex-start</code>, <code>center</code>, <code>flex-end</code>, <code>space-between</code>, <code>space-around</code>, <code>space-evenly</code></td>
+                                <td>Aligns items along the Main Axis.</td>
                             </tr>
                             <tr>
-                                <td><code>[attr*="val"]</code></td>
-                                <td><strong>Substring / Contains</strong>: Value contains the string anywhere inside.</td>
-                                <td><code>[class*="icon-"] { vertical-align: middle; }</code></td>
-                                <td>Matching icon class families</td>
+                                <td><strong>Container</strong></td>
+                                <td><code>align-items</code></td>
+                                <td><code>stretch</code></td>
+                                <td><code>stretch</code>, <code>flex-start</code>, <code>center</code>, <code>flex-end</code>, <code>baseline</code></td>
+                                <td>Aligns items along the Cross Axis on the current line.</td>
                             </tr>
                             <tr>
-                                <td><code>[attr~="val"]</code></td>
-                                <td><strong>Whitespace List</strong>: Matches value in a space-separated list.</td>
-                                <td><code>[data-tags~="frontend"] { font-weight: bold; }</code></td>
-                                <td>Tag filtering systems</td>
+                                <td><strong>Container</strong></td>
+                                <td><code>gap</code></td>
+                                <td><code>0</code></td>
+                                <td><code>&lt;length&gt;</code> (e.g. <code>16px</code>, <code>1rem</code>)</td>
+                                <td>Gutter spacing between adjacent flex items.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Child Item</strong></td>
+                                <td><code>order</code></td>
+                                <td><code>0</code></td>
+                                <td><code>&lt;integer&gt;</code> (e.g. <code>-1</code>, <code>0</code>, <code>2</code>)</td>
+                                <td>Controls visual order independent of HTML order.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Child Item</strong></td>
+                                <td><code>flex-grow</code></td>
+                                <td><code>0</code></td>
+                                <td><code>&lt;number&gt;</code> (e.g. <code>0</code>, <code>1</code>, <code>2</code>)</td>
+                                <td>Proportional ability to grow and take free space.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Child Item</strong></td>
+                                <td><code>flex-shrink</code></td>
+                                <td><code>1</code></td>
+                                <td><code>&lt;number&gt;</code> (e.g. <code>0</code>, <code>1</code>)</td>
+                                <td>Proportional ability to shrink when space is tight.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Child Item</strong></td>
+                                <td><code>flex-basis</code></td>
+                                <td><code>auto</code></td>
+                                <td><code>auto</code>, <code>&lt;length&gt;</code> (e.g. <code>200px</code>)</td>
+                                <td>Initial base size before distributing space.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Child Item</strong></td>
+                                <td><code>align-self</code></td>
+                                <td><code>auto</code></td>
+                                <td><code>auto</code>, <code>flex-start</code>, <code>center</code>, <code>flex-end</code>, <code>stretch</code></td>
+                                <td>Overrides parent's <code>align-items</code> for this item.</td>
                             </tr>
                         </tbody>
                     </table>
-                </div>
-
-                <div class="callout callout-tip">
-                    <div class="callout-icon">⚡</div>
-                    <div class="callout-body">
-                        <strong>Pro Tip:</strong> All attribute selectors have the exact same specificity as a class selector: <code>0-1-0</code>! You can combine attributes with pseudo-classes like <code>input[type="text"]:focus</code>.
-                    </div>
-                </div>
-            </section>
-
-            <!-- Section 4: Pseudo-Classes -->
-            <section id="pseudo-classes" class="doc-section">
-                <div class="section-badge">Section 04</div>
-                <h2 class="section-heading">Pseudo-Classes: State &amp; Tree Position</h2>
-                <p>
-                    A <strong>pseudo-class</strong> (prefixed with a single colon <code>:</code>) selects elements based on their current state, user interaction, or index position in the document tree.
-                </p>
-
-                <div class="tabs-container">
-                    <div class="tab-group">
-                        <div class="tab-card">
-                            <h3 class="tab-card-title">1. User Interaction &amp; State</h3>
-                            <ul class="spec-list">
-                                <li><code>:hover</code> &mdash; Triggered when user hovers cursor over an element.</li>
-                                <li><code>:focus</code> &mdash; Triggered when an element (input/button) receives keyboard/click focus.</li>
-                                <li><code>:focus-visible</code> &mdash; Triggers focus ring strictly for keyboard navigation (Accessibility standard).</li>
-                                <li><code>:active</code> &mdash; Triggered the moment an element is actively clicked/pressed down.</li>
-                                <li><code>:visited</code> &mdash; Styles hyperlinks that the user has already visited in browser history.</li>
-                            </ul>
-                        </div>
-
-                        <div class="tab-card">
-                            <h3 class="tab-card-title">2. Structural &amp; Index Selectors</h3>
-                            <ul class="spec-list">
-                                <li><code>:first-child</code> &mdash; The very first sibling element under its parent.</li>
-                                <li><code>:last-child</code> &mdash; The very last sibling element under its parent.</li>
-                                <li><code>:nth-child(n)</code> &mdash; Matches by mathematical formula (e.g. <code>2n</code>, <code>even</code>, <code>odd</code>, <code>3</code>).</li>
-                                <li><code>:nth-of-type(n)</code> &mdash; Matches the nth sibling of the exact same tag type.</li>
-                                <li><code>:only-child</code> &mdash; Matches only if the parent contains no other children.</li>
-                            </ul>
-                        </div>
-
-                        <div class="tab-card">
-                            <h3 class="tab-card-title">3. Form &amp; Functional Pseudo-Classes</h3>
-                            <ul class="spec-list">
-                                <li><code>:checked</code> &mdash; Applied to active radio buttons, checkboxes, or options.</li>
-                                <li><code>:disabled</code> &mdash; Applied to non-interactive form controls with <code>disabled</code> attribute.</li>
-                                <li><code>:required</code> / <code>:optional</code> &mdash; Applied based on presence of form validation flags.</li>
-                                <li><code>:valid</code> / <code>:invalid</code> &mdash; Triggered dynamically when form inputs pass/fail HTML5 pattern rules.</li>
-                                <li><code>:not(selector)</code> &mdash; Negation pseudo-class: styles elements that DO NOT match the inside argument.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Interactive nth-child Demonstration -->
-                <div class="interactive-demo-block">
-                    <h4 class="demo-title">Visualizing <code>:nth-child</code> in Action</h4>
-                    <p class="demo-sub">Click a preset formula below to see how items in the grid are dynamically targeted:</p>
-                    <div class="nth-buttons">
-                        <button type="button" class="nth-btn active" data-formula="odd">:nth-child(odd)</button>
-                        <button type="button" class="nth-btn" data-formula="even">:nth-child(even)</button>
-                        <button type="button" class="nth-btn" data-formula="3n">:nth-child(3n)</button>
-                        <button type="button" class="nth-btn" data-formula="3n+1">:nth-child(3n+1)</button>
-                        <button type="button" class="nth-btn" data-formula="first">:first-child</button>
-                        <button type="button" class="nth-btn" data-formula="last">:last-child</button>
-                    </div>
-                    <div class="nth-grid" id="nth-grid-display">
-                        <div class="nth-item" data-index="1"><span>Item #1</span></div>
-                        <div class="nth-item" data-index="2"><span>Item #2</span></div>
-                        <div class="nth-item" data-index="3"><span>Item #3</span></div>
-                        <div class="nth-item" data-index="4"><span>Item #4</span></div>
-                        <div class="nth-item" data-index="5"><span>Item #5</span></div>
-                        <div class="nth-item" data-index="6"><span>Item #6</span></div>
-                        <div class="nth-item" data-index="7"><span>Item #7</span></div>
-                        <div class="nth-item" data-index="8"><span>Item #8</span></div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Section 5: Pseudo-Elements -->
-            <section id="pseudo-elements" class="doc-section">
-                <div class="section-badge">Section 05</div>
-                <h2 class="section-heading">Pseudo-Elements: Virtual DOM Sub-Parts</h2>
-                <p>
-                    A <strong>pseudo-element</strong> (prefixed with double colons <code>::</code>) targets a specific sub-part of an element or generates virtual content without adding extra HTML tags.
-                </p>
-
-                <div class="pseudo-elem-grid">
-                    <div class="elem-card">
-                        <span class="elem-badge">::before</span>
-                        <h4>Virtual Lead Content</h4>
-                        <p>Creates a virtual pseudo-box as the very first child of the element. Requires the <code>content: ""</code> property.</p>
-                        <div class="code-box">
-<pre><code>.badge::before {
-    content: "★";
-    margin-right: 6px;
-    color: #eab308;
-}</code></pre>
-                        </div>
-                    </div>
-
-                    <div class="elem-card">
-                        <span class="elem-badge">::after</span>
-                        <h4>Virtual Trailing Content</h4>
-                        <p>Creates a virtual pseudo-box as the last child. Ideal for decorative underline animations, badges, or clearfixes.</p>
-                        <div class="code-box">
-<pre><code>.link-animated::after {
-    content: "";
-    display: block;
-    height: 2px;
-    background: #4f46e5;
-}</code></pre>
-                        </div>
-                    </div>
-
-                    <div class="elem-card">
-                        <span class="elem-badge">::placeholder</span>
-                        <h4>Form Hint Styling</h4>
-                        <p>Styles the muted placeholder text inside <code>&lt;input&gt;</code> and <code>&lt;textarea&gt;</code> elements.</p>
-                        <div class="code-box">
-<pre><code>input::placeholder {
-    color: #94a3b8;
-    font-style: italic;
-}</code></pre>
-                        </div>
-                    </div>
-
-                    <div class="elem-card">
-                        <span class="elem-badge">::selection</span>
-                        <h4>User Text Highlight</h4>
-                        <p>Customizes the background and text color when a user highlights text on your page.</p>
-                        <div class="code-box">
-<pre><code>::selection {
-    background-color: #6366f1;
-    color: #ffffff;
-}</code></pre>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Section 6: Specificity Matrix -->
-            <section id="specificity" class="doc-section">
-                <div class="section-badge">Section 06</div>
-                <h2 class="section-heading">The CSS Specificity Matrix</h2>
-                <p>
-                    When multiple conflicting CSS rules target the same element, the browser calculates each selector's <strong>Specificity Score</strong>. The rule with the highest score wins the cascade!
-                </p>
-
-                <div class="specificity-table-container">
-                    <div class="spec-tuple-visual">
-                        <div class="spec-column col-inline">
-                            <span class="spec-score-title">Inline Style</span>
-                            <span class="spec-number">1 - 0 - 0 - 0</span>
-                            <span class="spec-weight">1000 points</span>
-                            <span class="spec-example"><code>style="color: red;"</code></span>
-                        </div>
-                        <div class="spec-gt">&gt;</div>
-                        <div class="spec-column col-id">
-                            <span class="spec-score-title">ID Selectors</span>
-                            <span class="spec-number">0 - 1 - 0 - 0</span>
-                            <span class="spec-weight">100 points</span>
-                            <span class="spec-example"><code>#header, #hero-btn</code></span>
-                        </div>
-                        <div class="spec-gt">&gt;</div>
-                        <div class="spec-column col-class">
-                            <span class="spec-score-title">Classes, Attrs, Pseudo</span>
-                            <span class="spec-number">0 - 0 - 1 - 0</span>
-                            <span class="spec-weight">10 points</span>
-                            <span class="spec-example"><code>.btn, [type="text"], :hover</code></span>
-                        </div>
-                        <div class="spec-gt">&gt;</div>
-                        <div class="spec-column col-element">
-                            <span class="spec-score-title">Elements &amp; Pseudo-Elems</span>
-                            <span class="spec-number">0 - 0 - 0 - 1</span>
-                            <span class="spec-weight">1 point</span>
-                            <span class="spec-example"><code>div, p, h1, ::before</code></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="specificity-examples-grid">
-                    <div class="spec-calc-row">
-                        <span class="calc-selector"><code>p</code></span>
-                        <span class="calc-score">0 - 0 - 0 - 1 (1 pt)</span>
-                        <span class="calc-desc">Single element selector</span>
-                    </div>
-                    <div class="spec-calc-row">
-                        <span class="calc-selector"><code>div p</code></span>
-                        <span class="calc-score">0 - 0 - 0 - 2 (2 pts)</span>
-                        <span class="calc-desc">Two element selectors</span>
-                    </div>
-                    <div class="spec-calc-row">
-                        <span class="calc-selector"><code>.card p</code></span>
-                        <span class="calc-score">0 - 0 - 1 - 1 (11 pts)</span>
-                        <span class="calc-desc">One class + one element</span>
-                    </div>
-                    <div class="spec-calc-row">
-                        <span class="calc-selector"><code>.card .title:hover</code></span>
-                        <span class="calc-score">0 - 0 - 3 - 0 (30 pts)</span>
-                        <span class="calc-desc">Two classes + one pseudo-class</span>
-                    </div>
-                    <div class="spec-calc-row">
-                        <span class="calc-selector"><code>#main-hero .btn</code></span>
-                        <span class="calc-score">0 - 1 - 1 - 0 (110 pts)</span>
-                        <span class="calc-desc">One ID + one class</span>
-                    </div>
-                    <div class="spec-calc-row highlight-calc">
-                        <span class="calc-selector"><code>#nav .list &gt; li:first-child a</code></span>
-                        <span class="calc-score">0 - 1 - 2 - 2 (122 pts)</span>
-                        <span class="calc-desc">1 ID, 1 class, 1 pseudo-class, 2 elements</span>
-                    </div>
-                </div>
-
-                <div class="callout callout-warning">
-                    <div class="callout-icon">⚠️</div>
-                    <div class="callout-body">
-                        <strong>The Nuclear Option: <code>!important</code></strong><br>
-                        Appending <code>!important</code> overrides normal specificity completely. Use it sparingly for accessibility utility classes; never use it to fix poor selector specificity architecture!
-                    </div>
-                </div>
-            </section>
-
-            <!-- Section 7: Live Interactive Selector Playground -->
-            <section id="live-playground" class="doc-section">
-                <div class="section-badge">Section 07</div>
-                <h2 class="section-heading">Interactive Live Selector Testing Lab</h2>
-                <p>
-                    Test any CSS selector in real-time! Type your selector or click one of the quick presets below. The lab will instantly parse your query, calculate its specificity score, highlight matching elements in the target canvas, and count how many nodes matched.
-                </p>
-
-                <div class="lab-workspace">
-                    <!-- Control Bar -->
-                    <div class="lab-controls">
-                        <label for="custom-selector-input" class="lab-label">Enter CSS Selector:</label>
-                        <div class="input-action-row">
-                            <input type="text" id="custom-selector-input" value=".badge" placeholder="e.g. .card, h4, [data-featured], .list > li:first-child" autocomplete="off" spellcheck="false">
-                            <button type="button" id="btn-apply-selector" class="btn-primary">Test Selector</button>
-                            <button type="button" id="btn-reset-selector" class="btn-secondary">Reset</button>
-                        </div>
-
-                        <!-- Quick Presets -->
-                        <div class="preset-chips-wrap">
-                            <span class="preset-label">Quick Presets:</span>
-                            <button type="button" class="preset-chip" data-sel="h4">h4</button>
-                            <button type="button" class="preset-chip" data-sel=".item">.item</button>
-                            <button type="button" class="preset-chip" data-sel="#vip-badge">#vip-badge</button>
-                            <button type="button" class="preset-chip" data-sel=".sample-box > p">.sample-box &gt; p</button>
-                            <button type="button" class="preset-chip" data-sel="h4 + p">h4 + p</button>
-                            <button type="button" class="preset-chip" data-sel="[data-status='active']">[data-status="active"]</button>
-                            <button type="button" class="preset-chip" data-sel=".item:nth-child(2)">.item:nth-child(2)</button>
-                            <button type="button" class="preset-chip" data-sel=".item:not(.active)">.item:not(.active)</button>
-                            <button type="button" class="preset-chip" data-sel="input[type='checkbox']:checked">input:checked</button>
-                        </div>
-
-                        <!-- Feedback Bar -->
-                        <div class="lab-feedback-bar">
-                            <div class="feedback-stat">
-                                <span class="stat-label">Matched Elements:</span>
-                                <span class="stat-value" id="match-count">1 element</span>
-                            </div>
-                            <div class="feedback-stat">
-                                <span class="stat-label">Specificity Score:</span>
-                                <span class="stat-value tag-score" id="specificity-display">(0, 0, 1, 0)</span>
-                            </div>
-                            <div class="feedback-stat">
-                                <span class="stat-label">Selector Status:</span>
-                                <span class="stat-status valid" id="selector-status">Valid Selector</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Target Canvas Sandbox -->
-                    <div class="canvas-panel">
-                        <div class="canvas-header">
-                            <span>Target HTML Sandbox (#sandbox-arena)</span>
-                            <span class="canvas-tag">Matching nodes pulse with cyan glow</span>
-                        </div>
-                        <div class="canvas-arena" id="sandbox-arena">
-
-                            <!-- Sandbox Item 1 -->
-                            <div class="sample-box card-sample" id="card-alpha">
-                                <h4>Article Headline One</h4>
-                                <p>This paragraph immediately follows the headline.</p>
-                                <p>This is a secondary paragraph inside the sample box.</p>
-                                <span class="badge" id="vip-badge">VIP Member</span>
-                            </div>
-
-                            <!-- Sandbox Item 2: List with attributes and siblings -->
-                            <div class="sample-box list-sample">
-                                <h4>Team Status Roster</h4>
-                                <ul class="sample-list">
-                                    <li class="item active" data-status="active">
-                                        <span class="user-name">Alex Rivera</span>
-                                        <span class="status-pill">Online</span>
-                                    </li>
-                                    <li class="item" data-status="idle">
-                                        <span class="user-name">Morgan Smith</span>
-                                        <span class="status-pill">Away</span>
-                                    </li>
-                                    <li class="item active" data-status="active">
-                                        <span class="user-name">Jordan Lee</span>
-                                        <span class="status-pill">Online</span>
-                                    </li>
-                                    <li class="item" data-status="offline">
-                                        <span class="user-name">Taylor Kim</span>
-                                        <span class="status-pill">Offline</span>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <!-- Sandbox Item 3: Form Elements -->
-                            <div class="sample-box form-sample">
-                                <h4>Interactive Inputs</h4>
-                                <div class="form-row">
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" checked>
-                                        <span>Receive Daily Digest</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox">
-                                        <span>Enable Push Alerts</span>
-                                    </label>
-                                </div>
-                                <div class="input-sample-wrap">
-                                    <input type="text" placeholder="Type here..." value="Sample Input Content">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Section 8: Practical Real-World UI Component -->
-            <section id="practical-showcase" class="doc-section">
-                <div class="section-badge">Section 08</div>
-                <h2 class="section-heading">Practical Component: Production UI Card</h2>
-                <p>
-                    See how modern CSS selectors power real-world user interface components like subscription tiers, badges, attribute-driven states, and pseudo-element effects:
-                </p>
-
-                <div class="showcase-grid">
-                    <!-- Pricing Card with Advanced Selectors -->
-                    <div class="pricing-card" data-plan="pro" data-popular="true">
-                        <div class="popular-ribbon">Most Popular</div>
-                        <div class="pricing-header">
-                            <span class="plan-tag">Developer Pro</span>
-                            <div class="plan-price">
-                                <span class="currency">$</span>
-                                <span class="amount">29</span>
-                                <span class="period">/ month</span>
-                            </div>
-                            <p class="plan-desc">For front-end engineers mastering modern web styling.</p>
-                        </div>
-
-                        <ul class="plan-features">
-                            <li class="feature-included">Universal &amp; Combinator mastery</li>
-                            <li class="feature-included">Attribute-driven reactive designs</li>
-                            <li class="feature-included">Pseudo-class state transitions</li>
-                            <li class="feature-included">Zero <code>!important</code> specificity control</li>
-                            <li class="feature-pending">Unlimited interactive sandboxes</li>
-                        </ul>
-
-                        <div class="pricing-action">
-                            <button type="button" class="btn-tier-cta">Get Started Today</button>
-                        </div>
-                    </div>
-
-                    <!-- Explanatory Breakdown Card -->
-                    <div class="breakdown-card">
-                        <h4 class="breakdown-title">Selectors Used in this Pricing Card</h4>
-                        <div class="breakdown-list">
-                            <div class="breakdown-item">
-                                <span class="code-pill">.pricing-card[data-popular="true"]</span>
-                                <p>Attribute selector that applies the glowing gradient border only to the popular tier.</p>
-                            </div>
-                            <div class="breakdown-item">
-                                <span class="code-pill">.plan-features &gt; li::before</span>
-                                <p>Child combinator + pseudo-element to render custom checkmark icons dynamically without extra HTML.</p>
-                            </div>
-                            <div class="breakdown-item">
-                                <span class="code-pill">.btn-tier-cta:hover:active</span>
-                                <p>Chained pseudo-classes to produce a tactile 3D press-down interaction feedback.</p>
-                            </div>
-                            <div class="breakdown-item">
-                                <span class="code-pill">.plan-features li:last-child</span>
-                                <p>Targets the final feature item to give it a distinctive pending-access badge.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Section 9: Quick Reference & Best Practices -->
-            <section id="cheat-sheet" class="doc-section">
-                <div class="section-badge">Section 09</div>
-                <h2 class="section-heading">Quick Reference &amp; Best Practices</h2>
-                <div class="summary-cards-grid">
-                    <div class="summary-box">
-                        <div class="s-icon">1</div>
-                        <h4>Favor Classes for Styling</h4>
-                        <p>Keep your CSS maintainable by styling via classes (<code>.btn</code>, <code>.card</code>). Avoid over-relying on IDs (<code>#btn</code>) which inflate specificity.</p>
-                    </div>
-                    <div class="summary-box">
-                        <div class="s-icon">2</div>
-                        <h4>Keep Selectors Shallow</h4>
-                        <p>Avoid deep nesting like <code>div.wrapper &gt; div &gt; ul &gt; li &gt; a &gt; span</code>. Aim for 1-2 levels of specificity to keep rules easy to override.</p>
-                    </div>
-                    <div class="summary-box">
-                        <div class="s-icon">3</div>
-                        <h4>Leverage Combinators</h4>
-                        <p>Use child combinators (<code>&gt;</code>) when child isolation is needed, and sibling combinators (<code>+</code>, <code>~</code>) for rhythmic content spacing.</p>
-                    </div>
-                    <div class="summary-box">
-                        <div class="s-icon">4</div>
-                        <h4>Respect the Cascade</h4>
-                        <p>Resolve specificity issues by lowering high-specificity rules instead of slapping <code>!important</code> onto declarations.</p>
-                    </div>
                 </div>
             </section>
         </main>
 
         <!-- Footer -->
         <footer class="main-footer">
-            <div class="footer-links">
-                <a href="https://github.com/harish-0987/DAY-13-OF-FRONTEND" class="f-link">&larr; Day 13: CSS Box Model</a>
-                <span class="f-divider">&bull;</span>
-                <a href="https://github.com/harish-0987/DAY-14-OF-FRONTEND" class="f-link f-current">Day 14: Important CSS Selectors (Current)</a>
-                <span class="f-divider">&bull;</span>
-                <a href="https://github.com/harish-0987" class="f-link">GitHub Profile</a>
-            </div>
-            <p class="copyright">
-                &copy; 2026 Harish (harish-0987) &bull; 100 Days of Frontend Challenge &bull; Built with HTML5 &amp; Modern Vanilla CSS
+            <p>
+                <strong>Day 15 of 100 Days Frontend Challenge</strong> &bull; Crafted by <a href="https://github.com/harish-0987" target="_blank" rel="noopener">Harish (harish-0987)</a>
+            </p>
+            <p style="margin-top: 6px; font-size: 0.8rem;">
+                Repository: <a href="https://github.com/harish-0987/DAY-15-OF-FRONTEND" target="_blank" rel="noopener">harish-0987/DAY-15-OF-FRONTEND</a>
             </p>
         </footer>
     </div>
 
-    <!-- JavaScript for Live Selector Playground and :nth-child visualizer -->
+    <!-- Interactive Script -->
     <script>
-        // --- 1. nth-child formula visualizer ---
-        const nthButtons = document.querySelectorAll('.nth-btn');
-        const nthItems = document.querySelectorAll('.nth-item');
+        // 1. Two Axes Visualizer Toggle
+        function setAxisDemo(direction, btn) {
+            const container = document.getElementById('axesSampleBox');
+            const mainLabel = document.getElementById('mainAxisText');
+            const crossLabel = document.getElementById('crossAxisText');
+            
+            // Update active button
+            const buttons = btn.parentElement.querySelectorAll('.btn-pill');
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
 
-        function applyNthFormula(formula) {
-            nthItems.forEach((item, index) => {
-                const n = index + 1; // 1-based index
-                let matches = false;
+            container.style.flexDirection = direction;
 
-                if (formula === 'odd') {
-                    matches = (n % 2 !== 0);
-                } else if (formula === 'even') {
-                    matches = (n % 2 === 0);
-                } else if (formula === '3n') {
-                    matches = (n % 3 === 0);
-                } else if (formula === '3n+1') {
-                    matches = ((n - 1) % 3 === 0);
-                } else if (formula === 'first') {
-                    matches = (n === 1);
-                } else if (formula === 'last') {
-                    matches = (n === nthItems.length);
-                }
-
-                if (matches) {
-                    item.classList.add('nth-matched');
-                } else {
-                    item.classList.remove('nth-matched');
-                }
-            });
+            if (direction === 'row') {
+                mainLabel.textContent = '➔ MAIN AXIS: Left to Right (Horizontal X)';
+                crossLabel.textContent = '⬇ CROSS AXIS: Top to Bottom (Vertical Y)';
+            } else if (direction === 'row-reverse') {
+                mainLabel.textContent = '⬅ MAIN AXIS: Right to Left (Horizontal X)';
+                crossLabel.textContent = '⬇ CROSS AXIS: Top to Bottom (Vertical Y)';
+            } else if (direction === 'column') {
+                mainLabel.textContent = '⬇ MAIN AXIS: Top to Bottom (Vertical Y)';
+                crossLabel.textContent = '➔ CROSS AXIS: Left to Right (Horizontal X)';
+            } else if (direction === 'column-reverse') {
+                mainLabel.textContent = '⬆ MAIN AXIS: Bottom to Top (Vertical Y)';
+                crossLabel.textContent = '➔ CROSS AXIS: Left to Right (Horizontal X)';
+            }
         }
 
-        nthButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                nthButtons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                applyNthFormula(btn.getAttribute('data-formula'));
-            });
-        });
-        // Initial run
-        applyNthFormula('odd');
+        // 2. Interactive Flexbox Studio
+        let selectedItemElement = null;
+        let selectedIndex = 1;
 
+        function updateStudio() {
+            const stage = document.getElementById('liveStage');
+            const dir = document.getElementById('ctrlDirection').value;
+            const justify = document.getElementById('ctrlJustify').value;
+            const align = document.getElementById('ctrlAlign').value;
+            const wrap = document.getElementById('ctrlWrap').value;
+            const gap = document.getElementById('ctrlGap').value;
 
-        // --- 2. Live Selector Playground & Specificity Calculator ---
-        const inputSelector = document.getElementById('custom-selector-input');
-        const btnApply = document.getElementById('btn-apply-selector');
-        const btnReset = document.getElementById('btn-reset-selector');
-        const matchCountEl = document.getElementById('match-count');
-        const specificityDisplay = document.getElementById('specificity-display');
-        const selectorStatus = document.getElementById('selector-status');
-        const arena = document.getElementById('sandbox-arena');
-        const presetChips = document.querySelectorAll('.preset-chip');
+            stage.style.flexDirection = dir;
+            stage.style.justifyContent = justify;
+            stage.style.alignItems = align;
+            stage.style.flexWrap = wrap;
+            stage.style.gap = gap;
 
-        // Simple specificity calculator (Inline, ID, Class/Attr/Pseudo, Element)
-        function calculateSpecificity(selector) {
-            let ids = 0;
-            let classes = 0;
-            let elements = 0;
-
-            // Remove pseudo-element double colons for counting
-            let clean = selector.trim();
-
-            // Check for pseudo-elements (::before, ::after, ::placeholder, etc.)
-            const pseudoElements = clean.match(/::[a-zA-Z-]+/g) || [];
-            elements += pseudoElements.length;
-            clean = clean.replace(/::[a-zA-Z-]+/g, ' ');
-
-            // Check for IDs (#name)
-            const idMatches = clean.match(/#[a-zA-Z0-9_-]+/g) || [];
-            ids += idMatches.length;
-            clean = clean.replace(/#[a-zA-Z0-9_-]+/g, ' ');
-
-            // Check for attributes [attr=val]
-            const attrMatches = clean.match(/\[[^\]]+\]/g) || [];
-            classes += attrMatches.length;
-            clean = clean.replace(/\[[^\]]+\]/g, ' ');
-
-            // Check for classes (.class)
-            const classMatches = clean.match(/\.[a-zA-Z0-9_-]+/g) || [];
-            classes += classMatches.length;
-            clean = clean.replace(/\.[a-zA-Z0-9_-]+/g, ' ');
-
-            // Check for pseudo-classes (:hover, :nth-child(n), etc.)
-            const pseudoClassMatches = clean.match(/:[a-zA-Z-]+(\([^)]*\))?/g) || [];
-            classes += pseudoClassMatches.length;
-            clean = clean.replace(/:[a-zA-Z-]+(\([^)]*\))?/g, ' ');
-
-            // Split remaining tokens and match HTML tags / elements
-            const tokens = clean.split(/[\s>+~,]+/).filter(Boolean);
-            const htmlTags = [
-                'h1','h2','h3','h4','h5','h6','p','span','div','ul','ol','li',
-                'a','button','input','label','section','article','header','footer',
-                'main','table','tr','td','th','tbody','thead','img','svg','form'
-            ];
-            tokens.forEach(tok => {
-                if (htmlTags.includes(tok.toLowerCase())) {
-                    elements++;
-                } else if (tok !== '*' && tok.length > 0) {
-                    elements++;
-                }
-            });
-
-            return {
-                tuple: `(0, ${ids}, ${classes}, ${elements})`,
-                weight: ids * 100 + classes * 10 + elements
-            };
+            const codeOutput = document.getElementById('generatedCssCode');
+            codeOutput.textContent = `.flex-container {
+    display: flex;
+    flex-direction: ${dir};
+    justify-content: ${justify};
+    align-items: ${align};
+    flex-wrap: ${wrap};
+    gap: ${gap};
+}`;
         }
 
-        function clearArenaHighlights() {
-            const allElements = arena.querySelectorAll('*');
-            allElements.forEach(el => el.classList.remove('sandbox-highlight'));
-        }
-
-        function runSelectorTest() {
-            clearArenaHighlights();
-            const rawSelector = inputSelector.value.trim();
-
-            if (!rawSelector) {
-                matchCountEl.textContent = '0 elements';
-                specificityDisplay.textContent = '(0, 0, 0, 0)';
-                selectorStatus.textContent = 'Empty Selector';
-                selectorStatus.className = 'stat-status invalid';
+        function addItem() {
+            const stage = document.getElementById('liveStage');
+            const items = stage.querySelectorAll('.flex-box-item');
+            if (items.length >= 8) {
+                alert('Maximum 8 boxes reached for the visual studio demo.');
                 return;
             }
+            const newIndex = items.length + 1;
+            const newBox = document.createElement('div');
+            newBox.className = 'flex-box-item';
+            newBox.onclick = function() { selectItem(this, newIndex); };
+            newBox.innerHTML = `
+                <span class="item-index">${newIndex}</span>
+                <span class="item-meta">flex item</span>
+            `;
+            stage.appendChild(newBox);
+        }
 
-            try {
-                // Test selector validity within the arena
-                const matchedNodes = arena.querySelectorAll(rawSelector);
+        function removeItem() {
+            const stage = document.getElementById('liveStage');
+            const items = stage.querySelectorAll('.flex-box-item');
+            if (items.length <= 1) {
+                alert('At least one item is required in the flex container.');
+                return;
+            }
+            const lastItem = items[items.length - 1];
+            if (lastItem === selectedItemElement) {
+                selectedItemElement = null;
+            }
+            stage.removeChild(lastItem);
+            // Select first item
+            const remaining = stage.querySelectorAll('.flex-box-item');
+            selectItem(remaining[0], 1);
+        }
 
-                matchedNodes.forEach(node => {
-                    node.classList.add('sandbox-highlight');
-                });
+        function resetStudio() {
+            document.getElementById('ctrlDirection').value = 'row';
+            document.getElementById('ctrlJustify').value = 'flex-start';
+            document.getElementById('ctrlAlign').value = 'center';
+            document.getElementById('ctrlWrap').value = 'nowrap';
+            document.getElementById('ctrlGap').value = '16px';
+            
+            const stage = document.getElementById('liveStage');
+            const items = stage.querySelectorAll('.flex-box-item');
+            items.forEach((item, index) => {
+                item.style.flexGrow = '0';
+                item.style.order = '0';
+                item.style.alignSelf = 'auto';
+            });
 
-                const count = matchedNodes.length;
-                matchCountEl.textContent = count === 1 ? '1 element' : `${count} elements`;
-                selectorStatus.textContent = 'Valid Selector';
-                selectorStatus.className = 'stat-status valid';
+            document.getElementById('itemGrow').value = 0;
+            document.getElementById('itemOrder').value = 0;
+            document.getElementById('itemAlignSelf').value = 'auto';
 
-                const spec = calculateSpecificity(rawSelector);
-                specificityDisplay.textContent = spec.tuple;
-            } catch (err) {
-                matchCountEl.textContent = '0 elements';
-                selectorStatus.textContent = 'Invalid Syntax';
-                selectorStatus.className = 'stat-status invalid';
-                specificityDisplay.textContent = 'Error';
+            updateStudio();
+        }
+
+        function selectItem(element, index) {
+            const allItems = document.querySelectorAll('.flex-box-item');
+            allItems.forEach(i => i.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedItemElement = element;
+            selectedIndex = index;
+
+            document.getElementById('selectedItemLabel').textContent = `Box #${index} Selected`;
+            document.getElementById('itemGrow').value = element.style.flexGrow || 0;
+            document.getElementById('itemOrder').value = element.style.order || 0;
+            document.getElementById('itemAlignSelf').value = element.style.alignSelf || 'auto';
+        }
+
+        function applyItemProperty() {
+            if (!selectedItemElement) {
+                const first = document.querySelector('.flex-box-item');
+                if (first) selectItem(first, 1);
+            }
+            if (selectedItemElement) {
+                const growVal = document.getElementById('itemGrow').value;
+                const orderVal = document.getElementById('itemOrder').value;
+                const alignSelfVal = document.getElementById('itemAlignSelf').value;
+
+                selectedItemElement.style.flexGrow = growVal;
+                selectedItemElement.style.order = orderVal;
+                selectedItemElement.style.alignSelf = alignSelfVal;
             }
         }
 
-        btnApply.addEventListener('click', runSelectorTest);
-        inputSelector.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') runSelectorTest();
-        });
+        // 3. Practical Pattern Tabs
+        function switchPattern(patternId, tabBtn) {
+            const allTabs = document.querySelectorAll('.tab-btn');
+            allTabs.forEach(t => t.classList.remove('active'));
+            tabBtn.classList.add('active');
 
-        btnReset.addEventListener('click', () => {
-            inputSelector.value = '.badge';
-            runSelectorTest();
-        });
+            const allContents = document.querySelectorAll('.pattern-content');
+            allContents.forEach(c => c.classList.remove('active'));
+            document.getElementById(patternId).classList.add('active');
+        }
 
-        presetChips.forEach(chip => {
-            chip.addEventListener('click', () => {
-                inputSelector.value = chip.getAttribute('data-sel');
-                runSelectorTest();
-            });
-        });
+        // 4. One-Click Code Copy
+        function copyCode(btn) {
+            const pre = btn.parentElement.querySelector('pre');
+            if (pre) {
+                navigator.clipboard.writeText(pre.textContent.trim()).then(() => {
+                    const originalText = btn.textContent;
+                    btn.textContent = 'Copied! ✓';
+                    btn.style.background = '#10b981';
+                    btn.style.color = 'white';
+                    btn.style.borderColor = '#10b981';
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.style.background = '';
+                        btn.style.color = '';
+                        btn.style.borderColor = '';
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Copy failed:', err);
+                });
+            }
+        }
 
-        // Run initial test
-        runSelectorTest();
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            updateStudio();
+            const firstItem = document.querySelector('.flex-box-item');
+            if (firstItem) selectItem(firstItem, 1);
+        });
     </script>
 </body>
 </html>
